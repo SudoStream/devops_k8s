@@ -1,0 +1,66 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: scriptwriter
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: scriptwriter
+  strategy:
+    type: RollingUpdate
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: scriptwriter
+        tier: backend
+        bump: bump-63
+    spec:
+      hostNetwork: true
+      containers:
+      - name: nginx
+        image: nginx:1.7.9
+        ports:
+        - containerPort: 443
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/usr/sbin/nginx", "-s", "quit"]
+        volumeMounts:
+          - name: "nginx-dev-proxf-conf"
+            mountPath: "/etc/nginx/conf.d"
+          - name: "scriptwriter-tls"
+            mountPath: "/etc/tls"
+      - name: scriptwriter
+        image:  eu.gcr.io/api-event-horizon-151020/scriptwriter:latest
+        env:
+        - name: KAFKA_BOOTSTRAP_SERVERS
+          value: 104.199.97.159:9092
+        imagePullPolicy: Always
+        resources:
+              limits:
+                cpu: 200m
+                memory: 500Mi
+              requests:
+                cpu: 100m
+                memory: 300Mi
+        ports:
+          - containerPort: 9000
+        livenessProbe:
+          httpGet:
+            host: 127.0.0.1
+            path: /health
+            port: 9000
+          initialDelaySeconds: 15
+          timeoutSeconds: 1
+      volumes:
+        - name: "scriptwriter-tls"
+          secret:
+            secretName: "scriptwriter-tls"
+        - name: "nginx-dev-proxf-conf"
+          configMap:
+            name: "nginx-dev-proxf-conf"
+            items:
+              - key: "nginx.conf"
+                path: "nginx.conf"
