@@ -4,7 +4,7 @@ metadata:
   name: scriptwriter
 spec:
   replicas: 1
-    selector:
+  selector:
     matchLabels:
       app: scriptwriter
   strategy:
