@@ -15,7 +15,7 @@ spec:
       labels:
         app: scriptwriter
         tier: backend
-        bump: bump-122
+        bump: bump-123
     spec:
       hostNetwork: true
       containers:
