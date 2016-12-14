@@ -36,7 +36,7 @@ spec:
         image:  eu.gcr.io/api-event-horizon-151020/scriptwriter:latest
         env:
         - name: KAFKA_BOOTSTRAP_SERVERS
-          value: 10.132.0.6:9092
+          value: 104.199.97.159:9092
         imagePullPolicy: Always
         resources:
               limits:
