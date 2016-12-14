@@ -11,5 +11,5 @@ spec:
       protocol: TCP
   selector:
     app: aeh-actor
-  clusterIP: 10.7.255.236
+  clusterIP: 10.7.252.202
   type: LoadBalancer
