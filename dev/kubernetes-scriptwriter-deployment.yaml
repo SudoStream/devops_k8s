@@ -54,6 +54,13 @@ spec:
             port: 9000
           initialDelaySeconds: 15
           timeoutSeconds: 1
+        readinessProbe:
+          # an http probe
+          httpGet:
+            path: /
+            port: 443
+          initialDelaySeconds: 20
+          timeoutSeconds: 5
       volumes:
         - name: "scriptwriter-tls"
           secret:
