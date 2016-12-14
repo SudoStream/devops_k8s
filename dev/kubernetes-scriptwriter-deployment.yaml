@@ -59,7 +59,7 @@ spec:
           httpGet:
             host: 127.0.0.1
             path: /health
-            port: 443
+            port: 9000
           initialDelaySeconds: 20
           timeoutSeconds: 5
       volumes:
