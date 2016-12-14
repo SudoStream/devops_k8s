@@ -1,0 +1,74 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: aeh-actor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aeh-actor
+  strategy:
+    type: RollingUpdate
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: aeh-actor
+        tier: backend
+        bump: bump-138
+    spec:
+      hostNetwork: true
+      containers:
+      - name: nginx
+        image: nginx:1.7.9
+        ports:
+        - containerPort: 443
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/usr/sbin/nginx", "-s", "quit"]
+        volumeMounts:
+          - name: "nginx-dev-proxf-conf"
+            mountPath: "/etc/nginx/conf.d"
+          - name: "scriptwriter-tls"
+            mountPath: "/etc/tls"
+      - name: aeh-actor
+        image:  eu.gcr.io/api-event-horizon-151020/aeh-actor:latest
+        env:
+        - name: KAFKA_BOOTSTRAP_SERVERS
+          value: 10.132.0.6:9092
+        imagePullPolicy: Always
+        resources:
+              limits:
+                cpu: 200m
+                memory: 500Mi
+              requests:
+                cpu: 100m
+                memory: 300Mi
+        ports:
+          - containerPort: 9000
+        livenessProbe:
+          httpGet:
+            host: 127.0.0.1
+            path: /health
+            port: 9100
+          initialDelaySeconds: 15
+          timeoutSeconds: 1
+        readinessProbe:
+          # an http probe
+          httpGet:
+            host: 127.0.0.1
+            path: /health
+            port: 9100
+          initialDelaySeconds: 20
+          timeoutSeconds: 5
+      volumes:
+        - name: "scriptwriter-tls"
+          secret:
+            secretName: "scriptwriter-tls"
+        - name: "nginx-dev-proxf-conf"
+          configMap:
+            name: "nginx-dev-proxf-conf"
+            items:
+              - key: "nginx.conf"
+                path: "nginx.conf"

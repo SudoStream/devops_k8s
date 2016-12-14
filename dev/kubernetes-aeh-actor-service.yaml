@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: aeh-actor-service
+  labels:
+    run: aeh-actor-service
+spec:
+  ports:
+    - port: 443
+      targetPort: 443
+      protocol: TCP
+  selector:
+    app: aeh-actor
+  clusterIP: 10.7.255.236
+  type: LoadBalancer
