@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 gcloud container clusters get-credentials api-event-horizon-cluster
 scriptwriter-bump.sh
 
