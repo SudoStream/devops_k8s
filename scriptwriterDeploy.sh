@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 gcloud container clusters get-credentials api-event-horizon-cluster
-scriptwriter-bump.sh
+./scriptwriter-bump.sh
 
 git add dev/kubernetes-scriptwriter-deployment.yaml
 git commit -m "bump"
