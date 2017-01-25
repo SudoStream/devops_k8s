@@ -11,5 +11,4 @@ spec:
       protocol: TCP
   selector:
     app: scriptwriter
-  clusterIP: 10.7.255.236
   type: LoadBalancer
