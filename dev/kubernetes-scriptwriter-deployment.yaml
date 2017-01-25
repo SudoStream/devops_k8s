@@ -37,12 +37,11 @@ spec:
         env:
         - name: KAFKA_BOOTSTRAP_SERVERS
           value: kafka.dev.sudostream.io:9092
-#          value: 104.199.68.10:9092
         imagePullPolicy: Always
         resources:
               limits:
-                cpu: 200m
-                memory: 500Mi
+                cpu: 400m
+                memory: 300Mi
               requests:
                 cpu: 100m
                 memory: 300Mi
