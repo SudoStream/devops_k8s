@@ -70,5 +70,5 @@ spec:
           configMap:
             name: "nginx-aeh-actor-dev-proxf-conf"
             items:
-              - key: "nginx.conf"
+              - key: "nginx-aeh-actor-dev-proxf-conf"
                 path: "nginx.conf"
