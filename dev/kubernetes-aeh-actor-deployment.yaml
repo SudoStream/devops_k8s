@@ -66,9 +66,9 @@ spec:
         - name: "scriptwriter-tls"
           secret:
             secretName: "scriptwriter-tls"
-        - name: "nginx-dev-aeh-actor-proxf-conf"
+        - name: "nginx-aeh-actor-dev-proxf-conf"
           configMap:
-            name: "nginx-dev-aeh-actor-proxf-conf"
+            name: "nginx-aeh-actor-dev-proxf-conf"
             items:
               - key: "nginx.conf"
                 path: "nginx.conf"
