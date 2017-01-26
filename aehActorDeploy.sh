@@ -10,6 +10,6 @@ git push -u origin master
 kubectl delete secret scriptwriter-tls
 kubectl create secret generic scriptwriter-tls --from-file $HOME/.ssh/certs
 kubectl delete configmap nginx-aeh-actor-dev-proxf-conf
-kubectl create configmap nginx-aeh-actor-dev-proxf-conf --from-file ./dev/nginx.conf
+kubectl create configmap nginx-aeh-actor-dev-proxf-conf --from-file ./dev/nginx-aeh-actor.conf
 kubectl apply -f ./dev/kubernetes-aeh-actor-service.yaml --record
 kubectl apply -f ./dev/kubernetes-aeh-actor-deployment.yaml --record
