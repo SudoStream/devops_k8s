@@ -70,5 +70,5 @@ spec:
           configMap:
             name: "nginx-scriptwriter-dev-proxf-conf"
             items:
-              - key: "nginx-scriptwriter-dev-proxf-conf"
-                path: "nginx.conf"
+              - key: "nginx-scriptwriter.conf"
+                path: "nginx-scriptwriter.conf"
