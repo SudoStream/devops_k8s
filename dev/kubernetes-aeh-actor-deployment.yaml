@@ -15,7 +15,7 @@ spec:
       labels:
         app: aeh-actor
         tier: backend
-        bump: bump-156
+        bump: bump-157
     spec:
       hostNetwork: true
       containers:
