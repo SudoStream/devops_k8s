@@ -46,12 +46,12 @@ spec:
                 cpu: 100m
                 memory: 300Mi
         ports:
-          - containerPort: 9000
+          - containerPort: 9100
         livenessProbe:
           httpGet:
             host: 127.0.0.1
             path: /health
-            port: 9000
+            port: 9100
           initialDelaySeconds: 15
           timeoutSeconds: 1
         readinessProbe:
@@ -59,7 +59,7 @@ spec:
           httpGet:
             host: 127.0.0.1
             path: /health
-            port: 9000
+            port: 9100
           initialDelaySeconds: 20
           timeoutSeconds: 5
       volumes:
