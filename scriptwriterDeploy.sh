@@ -9,8 +9,8 @@ git push -u origin master
 
 kubectl delete secret scriptwriter-tls
 kubectl create secret generic scriptwriter-tls --from-file $HOME/.ssh/certs
-kubectl delete configmap nginx-dev-proxf-conf
-kubectl create configmap nginx-dev-proxf-conf --from-file ./dev/nginx.conf
-#kubectl apply -f ./dev/kubernetes-scriptwriter-service.yaml --record
+kubectl delete configmap nginx-scriptwriter-dev-proxf-conf
+kubectl create configmap nginx-scriptwriter-dev-proxf-conf --from-file ./dev/nginx.conf
+kubectl apply -f ./dev/kubernetes-scriptwriter-service.yaml --record
 kubectl apply -f ./dev/kubernetes-scriptwriter-deployment.yaml --record
 

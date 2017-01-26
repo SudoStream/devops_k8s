@@ -22,13 +22,13 @@ spec:
       - name: nginx
         image: nginx:1.7.9
         ports:
-        - containerPort: 443
+        - containerPort: 8443
         lifecycle:
           preStop:
             exec:
               command: ["/usr/sbin/nginx", "-s", "quit"]
         volumeMounts:
-          - name: "nginx-dev-proxf-conf"
+          - name: "nginx-aeh-actor-dev-proxf-conf"
             mountPath: "/etc/nginx/conf.d"
           - name: "scriptwriter-tls"
             mountPath: "/etc/tls"
@@ -66,9 +66,9 @@ spec:
         - name: "scriptwriter-tls"
           secret:
             secretName: "scriptwriter-tls"
-        - name: "nginx-dev-proxf-conf"
+        - name: "nginx-dev-aeh-actor-proxf-conf"
           configMap:
-            name: "nginx-dev-proxf-conf"
+            name: "nginx-dev-aeh-actor-proxf-conf"
             items:
               - key: "nginx.conf"
                 path: "nginx.conf"
