@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: scriptwriter
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: scriptwriter
@@ -15,9 +15,9 @@ spec:
       labels:
         app: scriptwriter
         tier: backend
-        bump: bump-183
+        bump: bump-197
     spec:
-#      hostNetwork: true
+      hostNetwork: true
       containers:
       - name: nginx
         image: nginx:1.7.9
@@ -37,7 +37,7 @@ spec:
         env:
         - name: KAFKA_BOOTSTRAP_SERVERS
           value: kafka.dev.sudostream.io:9092
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         resources:
               limits:
                 cpu: 400m
