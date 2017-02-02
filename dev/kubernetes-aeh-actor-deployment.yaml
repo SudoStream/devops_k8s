@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: aeh-actor
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: aeh-actor
@@ -17,7 +17,7 @@ spec:
         tier: backend
         bump: bump-156
     spec:
-      hostNetwork: true
+#      hostNetwork: true
       containers:
       - name: nginx
         image: nginx:1.7.9
