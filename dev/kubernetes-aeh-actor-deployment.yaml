@@ -9,7 +9,7 @@ spec:
       app: aeh-actor
   strategy:
     type: RollingUpdate
-  minReadySeconds: 10
+  minReadySeconds: 30
   template:
     metadata:
       labels:
