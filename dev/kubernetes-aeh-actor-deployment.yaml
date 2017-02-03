@@ -15,7 +15,7 @@ spec:
       labels:
         app: aeh-actor
         tier: backend
-        bump: bump-172
+        bump: bump-173
     spec:
       containers:
       - name: nginx
