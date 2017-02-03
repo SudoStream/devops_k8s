@@ -15,7 +15,7 @@ spec:
       labels:
         app: scriptwriter
         tier: backend
-        bump: bump-209
+        bump: bump-210
     spec:
       containers:
       - name: nginx
