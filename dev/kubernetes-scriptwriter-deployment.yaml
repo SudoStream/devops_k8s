@@ -52,6 +52,12 @@ spec:
             port: 80
           initialDelaySeconds: 15
           timeoutSeconds: 1
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 20
+          timeoutSeconds: 5
       volumes:
         - name: "scriptwriter-tls"
           secret:
