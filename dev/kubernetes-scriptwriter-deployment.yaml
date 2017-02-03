@@ -48,15 +48,14 @@ spec:
           - containerPort: 9000
         livenessProbe:
           httpGet:
-            host: 127.0.0.1
+#            host: 127.0.0.1
             path: /health
             port: 9000
           initialDelaySeconds: 15
           timeoutSeconds: 1
         readinessProbe:
-          # an http probe
           httpGet:
-            host: 127.0.0.1
+#            host: 127.0.0.1
             path: /health
             port: 9000
           initialDelaySeconds: 20
