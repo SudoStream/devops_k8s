@@ -50,14 +50,14 @@ spec:
           httpGet:
 #            host: 127.0.0.1
             path: /health
-            port: 9000
+            port: 443
           initialDelaySeconds: 15
           timeoutSeconds: 1
         readinessProbe:
           httpGet:
 #            host: 127.0.0.1
             path: /health
-            port: 9000
+            port: 443
           initialDelaySeconds: 20
           timeoutSeconds: 5
       volumes:
