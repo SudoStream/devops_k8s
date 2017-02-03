@@ -21,7 +21,7 @@ spec:
       - name: nginx
         image: nginx:1.7.9
         ports:
-        - containerPort: 8443
+        - containerPort: 443
         lifecycle:
           preStop:
             exec:
@@ -48,19 +48,10 @@ spec:
           - containerPort: 9100
         livenessProbe:
           httpGet:
-            host: 127.0.0.1
             path: /health
-            port: 9100
+            port: 9000
           initialDelaySeconds: 15
           timeoutSeconds: 1
-        readinessProbe:
-          # an http probe
-          httpGet:
-            host: 127.0.0.1
-            path: /health
-            port: 9100
-          initialDelaySeconds: 20
-          timeoutSeconds: 5
       volumes:
         - name: "scriptwriter-tls"
           secret:
