@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: aeh-actor-service
+  name: actress-service
   labels:
-    run: aeh-actor-service
+    run: actress-service
 spec:
   ports:
     - port: 443
       targetPort: 443
       protocol: TCP
   selector:
-    app: aeh-actor
+    app: actress
   type: LoadBalancer

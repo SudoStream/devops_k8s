@@ -1,22 +1,24 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: aeh-actor
+  name: actress
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: aeh-actor
+      app: actress
   strategy:
     type: RollingUpdate
   minReadySeconds: 30
   template:
     metadata:
       labels:
-        app: aeh-actor
+        app: actress
         tier: backend
         bump: bump-173
     spec:
+      imagePullSecrets:
+        - name: "gcr-secret"
       containers:
       - name: nginx
         image: nginx:1.7.9
@@ -27,12 +29,12 @@ spec:
             exec:
               command: ["/usr/sbin/nginx", "-s", "quit"]
         volumeMounts:
-          - name: "nginx-aeh-actor-dev-proxf-conf"
+          - name: "nginx-actress-dev-proxf-conf"
             mountPath: "/etc/nginx/conf.d"
           - name: "scriptwriter-tls"
             mountPath: "/etc/tls"
-      - name: aeh-actor
-        image:  eu.gcr.io/api-event-horizon-151020/aeh-actor:latest
+      - name: actress
+        image:  eu.gcr.io/api-event-horizon-151020/actress:latest
         env:
         - name: KAFKA_BOOTSTRAP_SERVERS
           value: kafka.dev.sudostream.io:9092
@@ -62,9 +64,9 @@ spec:
         - name: "scriptwriter-tls"
           secret:
             secretName: "scriptwriter-tls"
-        - name: "nginx-aeh-actor-dev-proxf-conf"
+        - name: "nginx-actress-dev-proxf-conf"
           configMap:
-            name: "nginx-aeh-actor-dev-proxf-conf"
+            name: "nginx-actress-dev-proxf-conf"
             items:
-              - key: "nginx-aeh-actor.conf"
-                path: "nginx-aeh-actor.conf"
+              - key: "nginx-actress.conf"
+                path: "nginx-actress.conf"
