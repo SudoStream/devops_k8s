@@ -15,10 +15,8 @@ spec:
       labels:
         app: scriptwriter
         tier: backend
-        bump: bump-217
+        bump: bump-216
     spec:
-      imagePullSecrets:
-        - name: myregistrykey
       containers:
       - name: nginx
         image: nginx:1.7.9

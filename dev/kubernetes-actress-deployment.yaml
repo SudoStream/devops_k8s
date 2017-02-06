@@ -15,7 +15,7 @@ spec:
       labels:
         app: actress
         tier: backend
-        bump: bump-173
+        bump: bump-175
     spec:
       imagePullSecrets:
         - name: "gcr-secret"
