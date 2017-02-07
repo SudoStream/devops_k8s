@@ -15,14 +15,14 @@ spec:
       labels:
         app: actress
         tier: backend
-        bump: bump-178
+        bump: bump-179
     spec:
       imagePullSecrets:
         - name: myregistrykey
       volumes:
-        - name: "scriptwriter-tls"
+        - name: "actress-tls"
           secret:
-            secretName: "scriptwriter-tls"
+            secretName: "actress-tls"
         - name: "nginx-actress-dev-proxf-conf"
           configMap:
             name: "nginx-actress-dev-proxf-conf"
@@ -42,7 +42,7 @@ spec:
           volumeMounts:
             - name: "nginx-actress-dev-proxf-conf"
               mountPath: "/etc/nginx/conf.d"
-            - name: "scriptwriter-tls"
+            - name: "actress-tls"
               mountPath: "/etc/tls"
         - name: actress
           image:  eu.gcr.io/api-event-horizon-151020/actress:latest
