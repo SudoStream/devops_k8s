@@ -18,48 +18,7 @@ spec:
         bump: bump-176
     spec:
       imagePullSecrets:
-        - name: "gcr-secret"
-      containers:
-      - name: nginx
-        image: nginx:1.7.9
-        ports:
-        - containerPort: 443
-        lifecycle:
-          preStop:
-            exec:
-              command: ["/usr/sbin/nginx", "-s", "quit"]
-        volumeMounts:
-          - name: "nginx-actress-dev-proxf-conf"
-            mountPath: "/etc/nginx/conf.d"
-          - name: "scriptwriter-tls"
-            mountPath: "/etc/tls"
-      - name: actress
-        image:  eu.gcr.io/api-event-horizon-151020/actress:latest
-        env:
-        - name: KAFKA_BOOTSTRAP_SERVERS
-          value: kafka.dev.sudostream.io:9092
-        imagePullPolicy: Always
-        resources:
-              limits:
-                cpu: 400m
-                memory: 300Mi
-              requests:
-                cpu: 100m
-                memory: 300Mi
-        ports:
-          - containerPort: 9000
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 80
-          initialDelaySeconds: 15
-          timeoutSeconds: 1
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: 80
-          initialDelaySeconds: 20
-          timeoutSeconds: 5
+        - name: myregistrykey
       volumes:
         - name: "scriptwriter-tls"
           secret:
@@ -70,3 +29,45 @@ spec:
             items:
               - key: "nginx-actress.conf"
                 path: "nginx-actress.conf"
+      containers:
+        - name: nginx
+          image: nginx:1.7.9
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 443
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/usr/sbin/nginx", "-s", "quit"]
+          volumeMounts:
+            - name: "nginx-actress-dev-proxf-conf"
+              mountPath: "/etc/nginx/conf.d"
+            - name: "scriptwriter-tls"
+              mountPath: "/etc/tls"
+        - name: actress
+          image:  eu.gcr.io/api-event-horizon-151020/actress:latest
+          imagePullPolicy: Always
+          env:
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: kafka.dev.sudostream.io:9092
+          resources:
+            limits:
+              cpu: 400m
+              memory: 300Mi
+            requests:
+              cpu: 100m
+              memory: 300Mi
+          ports:
+            - containerPort: 9000
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 15
+            timeoutSeconds: 1
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 20
+            timeoutSeconds: 5

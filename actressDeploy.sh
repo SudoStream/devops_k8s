@@ -22,9 +22,9 @@ else
     exit 1
 fi
 
-kubectl delete secret scriptwriter-tls
+kubectl delete --ignore-not-found secret scriptwriter-tls
 kubectl create secret generic scriptwriter-tls --from-file $HOME/.ssh/certs
-kubectl delete configmap nginx-actress-dev-proxf-conf
+kubectl delete --ignore-not-found configmap nginx-actress-dev-proxf-conf
 kubectl create configmap nginx-actress-dev-proxf-conf --from-file ./dev/nginx-actress.conf
 kubectl apply -f ./dev/kubernetes-actress-service.yaml --record
 kubectl apply -f ./dev/kubernetes-actress-deployment.yaml --record
