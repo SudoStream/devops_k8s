@@ -15,7 +15,7 @@ spec:
       labels:
         app: actress
         tier: backend
-        bump: bump-188
+        bump: bump-189
     spec:
       imagePullSecrets:
         - name: myregistrykey
