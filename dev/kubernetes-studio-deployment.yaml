@@ -1,34 +1,34 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: actress
+  name: studio
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
-      app: actress
+      app: studio
   strategy:
     type: RollingUpdate
   minReadySeconds: 30
   template:
     metadata:
       labels:
-        app: actress
+        app: studio
         tier: backend
-        bump: bump-204
+        bump: bump-1
     spec:
       imagePullSecrets:
         - name: myregistrykey
       volumes:
-        - name: "actress-tls"
+        - name: "studio-tls"
           secret:
-            secretName: "actress-tls"
-        - name: "nginx-actress-dev-proxf-conf"
+            secretName: "studio-tls"
+        - name: "nginx-studio-dev-proxf-conf"
           configMap:
-            name: "nginx-actress-dev-proxf-conf"
+            name: "nginx-studio-dev-proxf-conf"
             items:
-              - key: "nginx-actress.conf"
-                path: "nginx-actress.conf"
+              - key: "nginx-studio.conf"
+                path: "nginx-studio.conf"
       containers:
         - name: nginx
           image: nginx:1.7.9
@@ -40,12 +40,12 @@ spec:
               exec:
                 command: ["/usr/sbin/nginx", "-s", "quit"]
           volumeMounts:
-            - name: "nginx-actress-dev-proxf-conf"
+            - name: "nginx-studio-dev-proxf-conf"
               mountPath: "/etc/nginx/conf.d"
-            - name: "actress-tls"
+            - name: "studio-tls"
               mountPath: "/etc/tls"
-        - name: actress
-          image:  eu.gcr.io/api-event-horizon-151020/actress:latest
+        - name: studio
+          image:  eu.gcr.io/api-event-horizon-151020/studio:latest
           imagePullPolicy: Always
           env:
             - name: KAFKA_BOOTSTRAP_SERVERS
@@ -58,7 +58,7 @@ spec:
               cpu: 100m
               memory: 300Mi
           ports:
-            - containerPort: 9000
+            - containerPort: 9010
           livenessProbe:
             httpGet:
               path: /health
