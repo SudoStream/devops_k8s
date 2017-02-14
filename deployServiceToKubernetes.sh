@@ -1,16 +1,22 @@
 #!/usr/bin/env bash
 package=$0
 
+# api-antagonist
+# amateur-screenwriter
+# studio
+# genre-romcom-screenwriter
+
+
 function usage {
     echo
     echo "    Usage: Deploy a service to kubernetes cluster"
     echo " "
     echo
-    echo "    $package [-h|--help] --service=[scriptwriter|actress] --type=[cloud|local]"
+    echo "    $package [-h|--help] --service=[[SERVICE_NAME - see below]] --type=[cloud|local]"
     echo " "
     echo "    options:"
     echo "        -h, --help                         show brief help"
-    echo "        --service=[scriptwriter|actress]   specify the service to deploy"
+    echo "        --service=[api-antagonist|amateur-screenwriter|studio|genre-romcom-screenwriter]   specify the service to deploy"
     echo "        --type=[cloud|local]               specify whether this is a 'cloud' or 'local' deployment"
     echo
 }
@@ -24,8 +30,11 @@ while test $# -gt 0; do
                 --service*)
                         export serviceToDeploy=`echo $1 | sed -e 's/^[^=]*=//g'`
                         shift
-                        if [[ ${serviceToDeploy} != "scriptwriter" && ${serviceToDeploy} != "actress" ]]; then
-                            echo "ERROR: Service to deploy must be 'scriptwriter' or 'actress'"
+                        if [[   ${serviceToDeploy} != "api-antagonist" && \
+                                ${serviceToDeploy} != "amateur-screenwriter" && \
+                                ${serviceToDeploy} != "studio" && \
+                                ${serviceToDeploy} != "genre-romcom-screenwriter" ]]; then
+                            echo "ERROR: Service to deploy must be one of 'api-antagonist', 'amateur-screenwriter', 'studio' or 'genre-romcom-screenwriter'"
                             exit 1
                         fi
                         ;;

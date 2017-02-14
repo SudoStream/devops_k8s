@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: scriptwriter-service
+  name: amateur-screenwriter-service
   labels:
-    run: scriptwriter-service
+    run: amateur-screenwriter-service
 spec:
   ports:
     - port: 443
       targetPort: 443
       protocol: TCP
   selector:
-    app: scriptwriter
+    app: amateur-screenwriter
   type: LoadBalancer
