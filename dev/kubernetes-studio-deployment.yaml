@@ -15,7 +15,7 @@ spec:
       labels:
         app: studio
         tier: backend
-        bump: bump-1
+        bump: bump-2
     spec:
       imagePullSecrets:
         - name: myregistrykey
@@ -45,7 +45,7 @@ spec:
             - name: "studio-tls"
               mountPath: "/etc/tls"
         - name: studio
-          image:  eu.gcr.io/api-event-horizon-151020/studio:latest
+          image: eu.gcr.io/api-event-horizon-151020/studio:0.0.1
           imagePullPolicy: Always
           env:
             - name: KAFKA_BOOTSTRAP_SERVERS
