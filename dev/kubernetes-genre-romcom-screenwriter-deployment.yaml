@@ -1,0 +1,73 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: genre-romcomscreenwriter
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: genre-romcomscreenwriter
+  strategy:
+    type: RollingUpdate
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: genre-romcomscreenwriter
+        tier: backend
+        bump: bump-3
+    spec:
+      imagePullSecrets:
+        - name: myregistrykey
+      volumes:
+        - name: "genre-romcomscreenwriter-tls"
+          secret:
+            secretName: "genre-romcomscreenwriter-tls"
+        - name: "nginx-genre-romcomscreenwriter-dev-proxf-conf"
+          configMap:
+            name: "nginx-genre-romcomscreenwriter-dev-proxf-conf"
+            items:
+              - key: "nginx-genre-romcomscreenwriter.conf"
+                path: "nginx-genre-romcomscreenwriter.conf"
+      containers:
+        - name: nginx
+          image: nginx:1.7.9
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 443
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/usr/sbin/nginx", "-s", "quit"]
+          volumeMounts:
+            - name: "nginx-genre-romcomscreenwriter-dev-proxf-conf"
+              mountPath: "/etc/nginx/conf.d"
+            - name: "genre-romcomscreenwriter-tls"
+              mountPath: "/etc/tls"
+        - name: genre-romcomscreenwriter
+          image:  eu.gcr.io/api-event-horizon-151020/genre-romcomscreenwriter:latest
+          imagePullPolicy: Always
+          env:
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: kafka.dev.sudostream.io:9092
+          resources:
+            limits:
+              cpu: 400m
+              memory: 300Mi
+            requests:
+              cpu: 100m
+              memory: 300Mi
+          ports:
+            - containerPort: 9020
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 15
+            timeoutSeconds: 1
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 20
+            timeoutSeconds: 5
