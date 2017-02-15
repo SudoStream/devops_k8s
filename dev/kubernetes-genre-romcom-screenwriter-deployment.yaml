@@ -15,7 +15,7 @@ spec:
       labels:
         app: genre-romcom-screenwriter
         tier: backend
-        bump: bump-5
+        bump: bump-6
     spec:
       imagePullSecrets:
         - name: myregistrykey
@@ -45,7 +45,7 @@ spec:
             - name: "genre-romcom-screenwriter-tls"
               mountPath: "/etc/tls"
         - name: genre-romcom-screenwriter
-          image:  eu.gcr.io/api-event-horizon-151020/genre-romcom-screenwriter:latest
+          image: eu.gcr.io/api-event-horizon-151020/genre-romcom-screenwriter:0.0.1-2
           imagePullPolicy: Always
           env:
             - name: KAFKA_BOOTSTRAP_SERVERS
