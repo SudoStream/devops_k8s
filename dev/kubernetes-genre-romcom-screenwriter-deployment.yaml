@@ -1,34 +1,34 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: genre-romcomscreenwriter
+  name: genre-romcom-screenwriter
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: genre-romcomscreenwriter
+      app: genre-romcom-screenwriter
   strategy:
     type: RollingUpdate
   minReadySeconds: 10
   template:
     metadata:
       labels:
-        app: genre-romcomscreenwriter
+        app: genre-romcom-screenwriter
         tier: backend
         bump: bump-4
     spec:
       imagePullSecrets:
         - name: myregistrykey
       volumes:
-        - name: "genre-romcomscreenwriter-tls"
+        - name: "genre-romcom-screenwriter-tls"
           secret:
-            secretName: "genre-romcomscreenwriter-tls"
-        - name: "nginx-genre-romcomscreenwriter-dev-proxf-conf"
+            secretName: "genre-romcom-screenwriter-tls"
+        - name: "nginx-genre-romcom-screenwriter-dev-proxf-conf"
           configMap:
-            name: "nginx-genre-romcomscreenwriter-dev-proxf-conf"
+            name: "nginx-genre-romcom-screenwriter-dev-proxf-conf"
             items:
-              - key: "nginx-genre-romcomscreenwriter.conf"
-                path: "nginx-genre-romcomscreenwriter.conf"
+              - key: "nginx-genre-romcom-screenwriter.conf"
+                path: "nginx-genre-romcom-screenwriter.conf"
       containers:
         - name: nginx
           image: nginx:1.7.9
@@ -40,12 +40,12 @@ spec:
               exec:
                 command: ["/usr/sbin/nginx", "-s", "quit"]
           volumeMounts:
-            - name: "nginx-genre-romcomscreenwriter-dev-proxf-conf"
+            - name: "nginx-genre-romcom-screenwriter-dev-proxf-conf"
               mountPath: "/etc/nginx/conf.d"
-            - name: "genre-romcomscreenwriter-tls"
+            - name: "genre-romcom-screenwriter-tls"
               mountPath: "/etc/tls"
-        - name: genre-romcomscreenwriter
-          image:  eu.gcr.io/api-event-horizon-151020/genre-romcomscreenwriter:latest
+        - name: genre-romcom-screenwriter
+          image:  eu.gcr.io/api-event-horizon-151020/genre-romcom-screenwriter:latest
           imagePullPolicy: Always
           env:
             - name: KAFKA_BOOTSTRAP_SERVERS
