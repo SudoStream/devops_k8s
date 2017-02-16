@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: genre-romcom-screenwriter
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: genre-romcom-screenwriter
