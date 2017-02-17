@@ -1,0 +1,73 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: antagonist-cast
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: antagonist-cast
+  strategy:
+    type: RollingUpdate
+  minReadySeconds: 30
+  template:
+    metadata:
+      labels:
+        app: antagonist-cast
+        tier: backend
+        bump: bump-1
+    spec:
+      imagePullSecrets:
+        - name: myregistrykey
+      volumes:
+        - name: "antagonist-cast-tls"
+          secret:
+            secretName: "antagonist-cast-tls"
+        - name: "nginx-antagonist-cast-dev-proxf-conf"
+          configMap:
+            name: "nginx-antagonist-cast-dev-proxf-conf"
+            items:
+              - key: "nginx-antagonist-cast.conf"
+                path: "nginx-antagonist-cast.conf"
+      containers:
+        - name: nginx
+          image: nginx:1.7.9
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 443
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/usr/sbin/nginx", "-s", "quit"]
+          volumeMounts:
+            - name: "nginx-antagonist-cast-dev-proxf-conf"
+              mountPath: "/etc/nginx/conf.d"
+            - name: "antagonist-cast-tls"
+              mountPath: "/etc/tls"
+        - name: antagonist-cast
+          image: eu.gcr.io/api-event-horizon-151020/antagonist-cast:latest
+          imagePullPolicy: Always
+          env:
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: kafka.dev.sudostream.io:9092
+          resources:
+            limits:
+              cpu: 400m
+              memory: 300Mi
+            requests:
+              cpu: 100m
+              memory: 300Mi
+          ports:
+            - containerPort: 9030
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 15
+            timeoutSeconds: 1
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 20
+            timeoutSeconds: 5
