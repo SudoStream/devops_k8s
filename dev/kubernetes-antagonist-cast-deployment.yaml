@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: antagonist-cast
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: antagonist-cast
