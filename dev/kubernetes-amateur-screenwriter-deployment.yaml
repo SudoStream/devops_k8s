@@ -15,7 +15,7 @@ spec:
       labels:
         app: amateur-screenwriter
         tier: backend
-        bump: bump-28
+        bump: bump-29
     spec:
       imagePullSecrets:
         - name: myregistrykey
