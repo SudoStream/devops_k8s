@@ -15,7 +15,7 @@ spec:
       labels:
         app: genre-romcom-screenwriter
         tier: backend
-        bump: bump-7
+        bump: bump-8
     spec:
       imagePullSecrets:
         - name: myregistrykey
