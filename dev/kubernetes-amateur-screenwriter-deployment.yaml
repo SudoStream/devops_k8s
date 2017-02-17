@@ -70,11 +70,11 @@ spec:
             httpGet:
               path: /health
               port: 80
-            initialDelaySeconds: 15
+            initialDelaySeconds: 300
             timeoutSeconds: 1
           readinessProbe:
             httpGet:
               path: /health
               port: 80
-            initialDelaySeconds: 20
+            initialDelaySeconds: 300
             timeoutSeconds: 5
