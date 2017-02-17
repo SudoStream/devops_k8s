@@ -16,7 +16,7 @@ function usage {
     echo " "
     echo "    options:"
     echo "        -h, --help                         show brief help"
-    echo "        --service=[api-antagonist|amateur-screenwriter|studio|genre-romcom-screenwriter]   specify the service to deploy"
+    echo "        --service=[antagonist-cast|amateur-screenwriter|studio|genre-romcom-screenwriter]   specify the service to deploy"
     echo "        --type=[cloud|local]               specify whether this is a 'cloud' or 'local' deployment"
     echo
 }
@@ -30,7 +30,7 @@ while test $# -gt 0; do
                 --service*)
                         export serviceToDeploy=`echo $1 | sed -e 's/^[^=]*=//g'`
                         shift
-                        if [[   ${serviceToDeploy} != "api-antagonist" && \
+                        if [[   ${serviceToDeploy} != "antagonist-cast" && \
                                 ${serviceToDeploy} != "amateur-screenwriter" && \
                                 ${serviceToDeploy} != "studio" && \
                                 ${serviceToDeploy} != "genre-romcom-screenwriter" ]]; then
