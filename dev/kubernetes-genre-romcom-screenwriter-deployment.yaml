@@ -36,10 +36,10 @@ spec:
           resources:
             limits:
               cpu: 100m
-              memory: 700Mi
+              memory: 256Mi
             requests:
               cpu: 100m
-              memory: 500Mi
+              memory: 128Mi
           ports:
             - containerPort: 443
           lifecycle:
@@ -60,10 +60,10 @@ spec:
           resources:
             limits:
               cpu: 100m
-              memory: 700Mi
+              memory: 512Mi
             requests:
               cpu: 100m
-              memory: 500Mi
+              memory: 256Mi
           ports:
             - containerPort: 9020
           livenessProbe:
