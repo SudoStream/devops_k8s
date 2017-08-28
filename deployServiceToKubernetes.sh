@@ -84,7 +84,7 @@ if [[ ${deploymentType} == "local" ]]; then
                     --docker-username=oauth2accesstoken \
                     --docker-password=${accessToken} --docker-email=andy@sudostream.io
 elif [[ ${deploymentType} == "cloud" ]]; then
-    gcloud container clusters get-credentials timetoteach-cluster
+    gcloud container clusters get-credentials timetoteach-dev-cluster
 
     git add dev/kubernetes-${serviceToDeploy}-deployment.yaml
     git commit -m "bump"
