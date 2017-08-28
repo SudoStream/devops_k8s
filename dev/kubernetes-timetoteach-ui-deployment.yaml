@@ -26,7 +26,7 @@ spec:
 #        - name: "nginx-timetoteach-ui-server-dev-proxf-conf"
         - name: "nginx-hohoho"
           configMap:
-            name: "nginx-timetoteach-ui-server-dev-proxf-conf"
+            name: "nginx-timetoteach-ui-server"
             items:
               - key: "nginx-timetoteach-ui-server.conf"
                 path: "nginx-timetoteach-ui-server.conf"
