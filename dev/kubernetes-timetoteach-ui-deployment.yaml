@@ -47,7 +47,7 @@ spec:
               exec:
                 command: ["/usr/sbin/nginx", "-s", "quit"]
           volumeMounts:
-            - name: "nginx-timetoteach-ui-server-dev-proxf-conf"
+            - name: "nginx-timetoteach-ui-dev-proxf-conf"
               mountPath: "/etc/nginx/conf.d"
             - name: "timetoteach-ui-server-tls"
               mountPath: "/etc/tls"
