@@ -15,7 +15,7 @@ spec:
       labels:
         app: antagonist-cast
         tier: backend
-        bump: bump-3
+        bump: bump-4
     spec:
       imagePullSecrets:
         - name: myregistrykey
