@@ -15,7 +15,7 @@ spec:
       labels:
         app: timetoteach-ui-server
         tier: backend
-        bump: bump-22
+        bump: bump-23
     spec:
       imagePullSecrets:
         - name: myregistrykey
@@ -47,7 +47,7 @@ spec:
               exec:
                 command: ["/usr/sbin/nginx", "-s", "quit"]
           volumeMounts:
-            - name: "nginx-timetoteach-ui-dev-proxf-conf"
+            - name: "nginx-timetoteach-ui-server-dev-proxf-conf"
               mountPath: "/etc/nginx/conf.d"
             - name: "timetoteach-ui-server-tls"
               mountPath: "/etc/tls"
