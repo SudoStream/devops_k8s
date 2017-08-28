@@ -15,7 +15,7 @@ spec:
       labels:
         app: timetoteach-ui
         tier: backend
-        bump: bump-10
+        bump: bump-11
     spec:
       imagePullSecrets:
         - name: myregistrykey
@@ -52,7 +52,7 @@ spec:
             - name: "timetoteach-ui-tls"
               mountPath: "/etc/tls"
         - name: timetoteach-ui
-          image: eu.gcr.io/time-to-teach/timetoteach-ui:0.0.1-SNAPSHOT
+          image: eu.gcr.io/time-to-teach/timetoteach-ui:0.0.1
           imagePullPolicy: Always
           resources:
             limits:
