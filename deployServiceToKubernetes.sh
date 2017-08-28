@@ -30,7 +30,7 @@ while test $# -gt 0; do
                 --service*)
                         export serviceToDeploy=`echo $1 | sed -e 's/^[^=]*=//g'`
                         shift
-                        if [[   ${serviceToDeploy} != "timetoteach-ui-server" && \
+                        if [[   ${serviceToDeploy} != "timetoteach-ui" && \
                                 ${serviceToDeploy} != "antagonist-cast" && \
                                 ${serviceToDeploy} != "amateur-screenwriter" && \
                                 ${serviceToDeploy} != "studio" && \
