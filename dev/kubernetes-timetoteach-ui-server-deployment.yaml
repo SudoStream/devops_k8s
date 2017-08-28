@@ -25,7 +25,7 @@ spec:
             secretName: "timetoteach-ui-server-tls"
         - name: "nginx-timetoteach-ui-server-dev-proxf-conf"
           configMap:
-            name: "nginx-timetoteach-ui-dev-proxf-conf"
+            name: "nginx-timetoteach-ui-server-dev-proxf-conf"
             items:
               - key: "nginx-timetoteach-ui.conf"
                 path: "nginx-timetoteach-ui.conf"
