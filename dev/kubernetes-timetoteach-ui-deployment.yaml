@@ -15,7 +15,7 @@ spec:
       labels:
         app: timetoteach-ui-server
         tier: backend
-        bump: bump-21
+        bump: bump-22
     spec:
       imagePullSecrets:
         - name: myregistrykey
@@ -23,10 +23,9 @@ spec:
         - name: "timetoteach-ui-server-tls"
           secret:
             secretName: "timetoteach-ui-server-tls"
-#        - name: "nginx-timetoteach-ui-server-dev-proxf-conf"
-        - name: "nginx-hohoho"
+        - name: "nginx-timetoteach-ui-server-dev-proxf-conf"
           configMap:
-            name: "nginx-timetoteach-ui-server"
+            name: "nginx-timetoteach-ui-server-dev-proxf-conf"
             items:
               - key: "nginx-timetoteach-ui-server.conf"
                 path: "nginx-timetoteach-ui-server.conf"
