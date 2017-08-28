@@ -49,7 +49,7 @@ spec:
           volumeMounts:
             - name: "nginx-timetoteach-ui-server-dev-proxf-conf"
               mountPath: "/etc/nginx/conf.d"
-            - name: "tls-certificate"
+            - name: "timetoteach-ui-server-tls"
               mountPath: "/etc/tls"
         - name: timetoteach-ui-server
           image: eu.gcr.io/time-to-teach/timetoteach-ui:0.0.1"
