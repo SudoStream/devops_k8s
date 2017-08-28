@@ -52,7 +52,7 @@ spec:
             - name: "timetoteach-ui-server-tls"
               mountPath: "/etc/tls"
         - name: timetoteach-ui-server
-          image: eu.gcr.io/time-to-teach/timetoteach-ui-server:0.0.1"
+          image: eu.gcr.io/time-to-teach/timetoteach_ui_server:0.0.1"
           imagePullPolicy: Always
           resources:
             limits:
