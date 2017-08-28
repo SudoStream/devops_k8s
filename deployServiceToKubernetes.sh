@@ -30,7 +30,8 @@ while test $# -gt 0; do
                 --service*)
                         export serviceToDeploy=`echo $1 | sed -e 's/^[^=]*=//g'`
                         shift
-                        if [[   ${serviceToDeploy} != "antagonist-cast" && \
+                        if [[   ${serviceToDeploy} != "timetoteach-ui" && \
+                                ${serviceToDeploy} != "antagonist-cast" && \
                                 ${serviceToDeploy} != "amateur-screenwriter" && \
                                 ${serviceToDeploy} != "studio" && \
                                 ${serviceToDeploy} != "genre-romcom-screenwriter" ]]; then
@@ -71,7 +72,7 @@ newNum=`expr $oldNum + 1`
 sed -i "s/bump-$oldNum/bump-$newNum/g" dev/kubernetes-${serviceToDeploy}-deployment.yaml
 
 ################## update the image version of service to latest ####################################
-image_version="eu.gcr.io\/api-event-horizon-151020\/${serviceToDeploy}:${build_version_stripped}"
+image_version="eu.gcr.io\/time-to-teach\/${serviceToDeploy}:${build_version_stripped}"
 sed_command="/.*image.*${serviceToDeploy}.*/  s/image:.*$/image: ${image_version}/g"
 sed -i "${sed_command}" dev/kubernetes-${serviceToDeploy}-deployment.yaml
 #####################################################################################################
@@ -83,7 +84,7 @@ if [[ ${deploymentType} == "local" ]]; then
                     --docker-username=oauth2accesstoken \
                     --docker-password=${accessToken} --docker-email=andy@sudostream.io
 elif [[ ${deploymentType} == "cloud" ]]; then
-    gcloud container clusters get-credentials api-event-horizon-cluster
+    gcloud container clusters get-credentials timetoteach-cluster
 
     git add dev/kubernetes-${serviceToDeploy}-deployment.yaml
     git commit -m "bump"

@@ -1,0 +1,77 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: timetoteach-ui
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: timetoteach-ui
+  strategy:
+    type: RollingUpdate
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: timetoteach-ui
+        tier: backend
+        bump: bump-1
+    spec:
+      imagePullSecrets:
+        - name: myregistrykey
+      volumes:
+        - name: "timetoteach-ui-tls"
+          secret:
+            secretName: "timetoteach-ui-tls"
+        - name: "nginx-timetoteach-ui-dev-proxf-conf"
+          configMap:
+            name: "nginx-timetoteach-ui-dev-proxf-conf"
+            items:
+              - key: "nginx-timetoteach-ui.conf"
+                path: "nginx-timetoteach-ui.conf"
+      containers:
+        - name: nginx
+          image: nginx:1.7.9
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 100m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          ports:
+            - containerPort: 443
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/usr/sbin/nginx", "-s", "quit"]
+          volumeMounts:
+            - name: "nginx-timetoteach-ui-dev-proxf-conf"
+              mountPath: "/etc/nginx/conf.d"
+            - name: "timetoteach-ui-tls"
+              mountPath: "/etc/tls"
+        - name: timetoteach-ui
+          image: eu.gcr.io/timetoteach/timetoteach-ui:0.0.1
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 100m
+              memory: 1024Mi
+            requests:
+              cpu: 100m
+              memory: 512Mi
+          ports:
+            - containerPort: 9000
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 300
+            timeoutSeconds: 1
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 300
+            timeoutSeconds: 5
