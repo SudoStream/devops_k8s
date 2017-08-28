@@ -10,5 +10,5 @@ spec:
       targetPort: 443
       protocol: TCP
   selector:
-    app: timetoteach-ui
+    app: timetoteach-ui-server
   type: LoadBalancer
