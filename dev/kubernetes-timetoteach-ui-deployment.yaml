@@ -23,7 +23,8 @@ spec:
         - name: "timetoteach-ui-server-tls"
           secret:
             secretName: "timetoteach-ui-server-tls"
-        - name: "nginx-timetoteach-ui-server-dev-proxf-conf"
+#        - name: "nginx-timetoteach-ui-server-dev-proxf-conf"
+        - name: "nginx-hohoho"
           configMap:
             name: "nginx-timetoteach-ui-server-dev-proxf-conf"
             items:
