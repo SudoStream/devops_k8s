@@ -35,7 +35,7 @@ while test $# -gt 0; do
                                 ${serviceToDeploy} != "amateur-screenwriter" && \
                                 ${serviceToDeploy} != "studio" && \
                                 ${serviceToDeploy} != "genre-romcom-screenwriter" ]]; then
-                            echo "ERROR: Service to deploy must be one of 'api-antagonist', 'amateur-screenwriter', 'studio' or 'genre-romcom-screenwriter'"
+                            echo "ERROR: Service to deploy must be one of 'timetoteach-ui-server', 'api-antagonist', 'amateur-screenwriter', 'studio' or 'genre-romcom-screenwriter'"
                             exit 1
                         fi
                         ;;
