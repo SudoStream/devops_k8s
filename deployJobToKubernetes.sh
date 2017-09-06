@@ -12,11 +12,11 @@ function usage {
     echo "    Usage: Deploy a service to kubernetes cluster"
     echo " "
     echo
-    echo "    $package [-h|--help] --service=[[SERVICE_NAME - see below]] --type=[cloud|local]"
+    echo "    $package [-h|--help] --service=[[JOB_NAME - see below]] --type=[cloud|local]"
     echo " "
     echo "    options:"
     echo "        -h, --help                         show brief help"
-    echo "        --service=[job-esAndOsPopulator|timetoteach-ui-server]   specify the service to deploy"
+    echo "        --service=[esandospopulator]   specify the service to deploy"
     echo "        --type=[cloud|local]               specify whether this is a 'cloud' or 'local' deployment"
     echo
 }
@@ -31,9 +31,8 @@ while test $# -gt 0; do
                         export serviceToDeploy=`echo $1 | sed -e 's/^[^=]*=//g'`
                         shift
                         echo "Deploying ... ${serviceToDeploy}"
-                        if [[   ${serviceToDeploy} != "timetoteach-ui-server" && \
-                                ${serviceToDeploy} != "job-esAndOsPopulator" ]]; then
-                            echo "ERROR: Service to deploy must be one of 'job-esAndOsPopulator', 'timetoteach-ui-server'"
+                        if [[ ${serviceToDeploy} != "esandospopulator" ]]; then
+                            echo "ERROR: Service to deploy must be one of 'esandospopulator'"
                             exit 1
                         fi
                         ;;
@@ -54,25 +53,25 @@ fi
 
 curr_dir=`pwd`
 
-svc_dir=`mktemp -d` && cd ${svc_dir}
-git clone git@github.com:SudoStream/svc_${serviceToDeploy}.git
-cd svc_${serviceToDeploy}
+job_dir=`mktemp -d` && cd ${job_dir}
+git clone git@github.com:SudoStream/job_${serviceToDeploy}.git
+cd job_${serviceToDeploy}
 
 build_version_in_quotes=`cat build.sbt  | grep "version :=" | awk '{print $3}'  `
 build_version_stripped=`echo ${build_version_in_quotes:1:-1} `
 
 cd ${curr_dir}
-rm -rf ${svc_dir}
+rm -rf ${job_dir}
 
 # bump the label number
-oldNum=`cat dev/kubernetes-${serviceToDeploy}-deployment.yaml | grep bump | cut -d "-" -f2`
-newNum=`expr $oldNum + 1`
-sed -i "s/bump-$oldNum/bump-$newNum/g" dev/kubernetes-${serviceToDeploy}-deployment.yaml
+#oldNum=`cat dev/kubernetes-${serviceToDeploy}-job.yaml | grep bump | cut -d "-" -f2`
+#newNum=`expr $oldNum + 1`
+#sed -i "s/bump-$oldNum/bump-$newNum/g" dev/kubernetes-${serviceToDeploy}-job.yaml
 
 ################## update the image version of service to latest ####################################
-image_version="eu.gcr.io\/time-to-teach\/${serviceToDeploy}:${build_version_stripped}"
-sed_command="/.*image.*${serviceToDeploy}.*/  s/image:.*$/image: ${image_version}/g"
-sed -i "${sed_command}" dev/kubernetes-${serviceToDeploy}-deployment.yaml
+#image_version="eu.gcr.io\/time-to-teach\/${serviceToDeploy}:${build_version_stripped}"
+#sed_command="/.*image.*${serviceToDeploy}.*/  s/image:.*$/image: ${image_version}/g"
+#sed -i "${sed_command}" dev/kubernetes-${serviceToDeploy}-job.yaml
 #####################################################################################################
 
 if [[ ${deploymentType} == "local" ]]; then
@@ -84,17 +83,12 @@ if [[ ${deploymentType} == "local" ]]; then
 elif [[ ${deploymentType} == "cloud" ]]; then
     gcloud container clusters get-credentials timetoteach-dev-cluster
 
-    git add dev/kubernetes-${serviceToDeploy}-deployment.yaml
-    git commit -m "bump"
-    git push -u origin master
+    git add dev/kubernetes-${serviceToDeploy}-job.yaml
+#    git commit -m "bump"
+#    git push -u origin master
 else
     echo "ERROR: must specify 'local' or 'cloud' run"
     exit 1
 fi
 
-kubectl delete --ignore-not-found secret ${serviceToDeploy}-tls
-kubectl create secret generic ${serviceToDeploy}-tls --from-file $HOME/.ssh/certs
-kubectl delete --ignore-not-found configmap nginx-${serviceToDeploy}-dev-proxf-conf
-kubectl create configmap nginx-${serviceToDeploy}-dev-proxf-conf --from-file ./dev/nginx-${serviceToDeploy}.conf
-kubectl apply -f ./dev/kubernetes-${serviceToDeploy}-service.yaml --record
-kubectl apply -f ./dev/kubernetes-${serviceToDeploy}-deployment.yaml --record
+kubectl apply -f ./dev/kubernetes-${serviceToDeploy}-job.yaml --record
