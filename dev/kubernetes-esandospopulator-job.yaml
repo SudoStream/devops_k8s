@@ -10,7 +10,7 @@ spec:
       containers:
       - name: esandospopulator
         image: eu.gcr.io/time-to-teach/esandospopulator:0.0.20
-        imagePullPolicy: Never
+        imagePullPolicy: IfNotPresent
         env:
           - name: MONGODB_CONNECTION_URI
             value: mongodb://ttt:hello321@timetoteachdevmongodb-shard-00-00-sss8y.gcp.mongodb.net:27017,timetoteachdevmongodb-shard-00-01-sss8y.gcp.mongodb.net:27017,timetoteachdevmongodb-shard-00-02-sss8y.gcp.mongodb.net:27017/test?ssl=true&replicaSet=TimeToTeachDevMongoDB-shard-0&authSource=admin
