@@ -91,4 +91,5 @@ else
     exit 1
 fi
 
+kubectl delete job ${serviceToDeploy}
 kubectl apply -f ./dev/kubernetes-${serviceToDeploy}-job.yaml --record
