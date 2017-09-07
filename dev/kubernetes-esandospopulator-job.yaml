@@ -9,16 +9,16 @@ spec:
     spec:
       containers:
       - name: esandospopulator
-        image: eu.gcr.io/time-to-teach/esandospopulator:0.0.2
-        imagePullPolicy: IfNotPresent
+        image: eu.gcr.io/time-to-teach/esandospopulator:0.0.18
+        imagePullPolicy: Always
         env:
           - name: MONGODB_CONNECTION_URI
             value: mongodb://ttt:hello321@timetoteachdevmongodb-shard-00-00-sss8y.gcp.mongodb.net:27017,timetoteachdevmongodb-shard-00-01-sss8y.gcp.mongodb.net:27017,timetoteachdevmongodb-shard-00-02-sss8y.gcp.mongodb.net:27017/test?ssl=true&replicaSet=TimeToTeachDevMongoDB-shard-0&authSource=admin
         resources:
           limits:
-            cpu: 100m
-            memory: 1024Mi
+            cpu: 500m
+            memory: 2048Mi
           requests:
-            cpu: 100m
-            memory: 512Mi
+            cpu: 200m
+            memory: 1024Mi
       restartPolicy: Never
