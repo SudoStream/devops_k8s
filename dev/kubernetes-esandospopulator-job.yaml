@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
       - name: esandospopulator
-        image: eu.gcr.io/time-to-teach/esandospopulator:0.0.19
+        image: eu.gcr.io/time-to-teach/esandospopulator:0.0.20
         imagePullPolicy: IfNotPresent
         env:
           - name: MONGODB_CONNECTION_URI
@@ -18,6 +18,16 @@ spec:
             value: "10.0.2.2"
           - name: MONGODB_PORT
             value: "27017"
+          - name: MONGODB_KEYSTORE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-keystore
+                key: keyStorePassword.txt
+          - name: MONGODB_KEYSTORE
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-keystore
+                key: cacerts
         resources:
           limits:
             cpu: 500m
