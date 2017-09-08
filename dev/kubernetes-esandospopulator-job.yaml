@@ -11,6 +11,7 @@ spec:
         - name: "mongodb-cacerts"
           secret:
             secretName: "mongodbkeystore"
+          optional: true
       containers:
       - name: esandospopulator
         image: eu.gcr.io/time-to-teach/esandospopulator:0.0.24
