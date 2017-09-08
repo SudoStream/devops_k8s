@@ -21,13 +21,13 @@ spec:
           - name: MONGODB_KEYSTORE_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: mongodb-keystore
-                key: keyStorePassword.txt
+                name: "mongodb-keystore"
+                key: "keyStorePassword.txt"
           - name: MONGODB_KEYSTORE
             valueFrom:
               secretKeyRef:
-                name: mongodb-keystore
-                key: cacerts
+                name: "mongodb-keystore"
+                key: "cacerts"
         resources:
           limits:
             cpu: 500m
