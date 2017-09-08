@@ -11,7 +11,6 @@ spec:
         - name: "mongodb-cacerts"
           secret:
             secretName: "mongodbkeystore"
-          optional: true
       containers:
       - name: esandospopulator
         image: eu.gcr.io/time-to-teach/esandospopulator:0.0.24
@@ -32,7 +31,6 @@ spec:
         volumeMounts:
           - name: "mongodb-cacerts"
             mountPath: "/etc/ssl/"
-            optional: true
         resources:
           limits:
             cpu: 300m
