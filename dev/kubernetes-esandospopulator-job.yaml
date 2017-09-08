@@ -31,6 +31,7 @@ spec:
         volumeMounts:
           - name: "mongodb-cacerts"
             mountPath: "/etc/ssl/"
+            optional: true
         resources:
           limits:
             cpu: 300m
