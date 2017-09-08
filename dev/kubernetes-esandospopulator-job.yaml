@@ -13,7 +13,7 @@ spec:
             secretName: "mongodbkeystore"
       containers:
       - name: esandospopulator
-        image: eu.gcr.io/time-to-teach/esandospopulator:0.0.21
+        image: eu.gcr.io/time-to-teach/esandospopulator:0.0.23
         imagePullPolicy: IfNotPresent
         env:
           - name: MONGODB_CONNECTION_URI
