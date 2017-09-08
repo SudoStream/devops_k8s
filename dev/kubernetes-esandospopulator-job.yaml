@@ -7,9 +7,13 @@ spec:
     metadata:
       name: esandospopulator
     spec:
+      volumes:
+        - name: "mongodb-cacerts"
+          secret:
+            secretName: "mongodbkeystore"
       containers:
       - name: esandospopulator
-        image: eu.gcr.io/time-to-teach/esandospopulator:0.0.20
+        image: eu.gcr.io/time-to-teach/esandospopulator:0.0.21
         imagePullPolicy: IfNotPresent
         env:
           - name: MONGODB_CONNECTION_URI
@@ -18,11 +22,20 @@ spec:
             value: "10.0.2.2"
           - name: MONGODB_PORT
             value: "27017"
+          - name: MONGODB_KEYSTORE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mongodbkeystorepassword
+                key: mongodbkeystorepassword
+                optional: true
+        volumeMounts:
+          - name: "mongodb-cacerts"
+            mountPath: "/etc/ssl/"
         resources:
           limits:
-            cpu: 500m
-            memory: 2048Mi
+            cpu: 300m
+            memory: 1024Mi
           requests:
             cpu: 200m
-            memory: 1024Mi
+            memory: 512Mi
       restartPolicy: Never
