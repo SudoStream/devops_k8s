@@ -16,7 +16,7 @@ function usage {
     echo " "
     echo "    options:"
     echo "        -h, --help                         show brief help"
-    echo "        --service=[job-esAndOsPopulator|timetoteach-ui-server]   specify the service to deploy"
+    echo "        --service=[job-esAndOsPopulator|timetoteach-ui-server|es-and-os-reader]   specify the service to deploy"
     echo "        --type=[cloud|local]               specify whether this is a 'cloud' or 'local' deployment"
     echo
 }
@@ -32,8 +32,9 @@ while test $# -gt 0; do
                         shift
                         echo "Deploying ... ${serviceToDeploy}"
                         if [[   ${serviceToDeploy} != "timetoteach-ui-server" && \
-                                ${serviceToDeploy} != "job-esAndOsPopulator" ]]; then
-                            echo "ERROR: Service to deploy must be one of 'job-esAndOsPopulator', 'timetoteach-ui-server'"
+                                ${serviceToDeploy} != "job-esAndOsPopulator" && \
+                                ${serviceToDeploy} != "es-and-os-reader" ]]; then
+                            echo "ERROR: Service to deploy must be one of 'job-esAndOsPopulator', 'timetoteach-ui-server' & 'es-and-os-reader'"
                             exit 1
                         fi
                         ;;
