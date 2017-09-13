@@ -56,7 +56,10 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: KAFKA_BOOTSTRAP_SERVERS
-              value: "bigbang:9092"
+              valueFrom:
+                secretKeyRef:
+                  name: kafkabootstrapservers
+                  key: kafkabootstrapservers
           resources:
             limits:
               cpu: 100m
