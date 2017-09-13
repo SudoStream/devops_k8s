@@ -53,7 +53,7 @@ spec:
               mountPath: "/etc/tls"
         - name: es-and-os-reader
           image: eu.gcr.io/time-to-teach/es-and-os-reader:0.0.1-4
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           env:
             - name: KAFKA_BOOTSTRAP_SERVERS
               value: "35.187.72.203:9092"
