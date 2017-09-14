@@ -32,7 +32,7 @@ while test $# -gt 0; do
                         shift
                         echo "Deploying ... ${serviceToDeploy}"
                         if [[ ${serviceToDeploy} != "esandospopulator" ]]; then
-                            echo "ERROR: Service to deploy must be one of 'esandospopulator'"
+                            echo "ERROR: Job to deploy must be one of 'esandospopulator'"
                             exit 1
                         fi
                         ;;
