@@ -97,9 +97,5 @@ kubectl delete --ignore-not-found secret ${serviceToDeploy}-tls
 kubectl create secret generic ${serviceToDeploy}-tls --from-file $HOME/.ssh/certs
 kubectl delete --ignore-not-found configmap nginx-${serviceToDeploy}-dev-proxf-conf
 kubectl create configmap nginx-${serviceToDeploy}-dev-proxf-conf --from-file ./dev/nginx-${serviceToDeploy}.conf
-kubectl delete secret mongodbkeystore
-kubectl create secret generic mongodbkeystore --from-file=cacerts=/etc/ssl/cacerts
-kubectl delete secret kafkasecrets
-kubectl create secret generic kafkasecrets --from-file=kafkabootstrapservers=$HOME/.secrets/kafkabootstrapservers
 kubectl apply -f ./dev/kubernetes-${serviceToDeploy}-service.yaml --record
 kubectl apply -f ./dev/kubernetes-${serviceToDeploy}-deployment.yaml --record
