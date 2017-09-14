@@ -16,12 +16,16 @@ spec:
         image: eu.gcr.io/time-to-teach/esandospopulator:0.0.27
         imagePullPolicy: IfNotPresent
         env:
-          - name: MONGODB_CONNECTION_URI
-            value: mongodb://ttt:hello321@timetoteachdevmongodb-shard-00-00-sss8y.gcp.mongodb.net:27017,timetoteachdevmongodb-shard-00-01-sss8y.gcp.mongodb.net:27017,timetoteachdevmongodb-shard-00-02-sss8y.gcp.mongodb.net:27017/test?ssl=true&replicaSet=TimeToTeachDevMongoDB-shard-0&authSource=admin
           - name: MONGODB_HOST
             value: "10.0.2.2"
           - name: MONGODB_PORT
             value: "27017"
+          - name: MONGODB_CONNECTION_URI
+            valueFrom:
+              secretKeyRef:
+                name: mongoconnectionuri
+                key: mongoconnectionuri
+                optional: true
           - name: MONGODB_KEYSTORE_PASSWORD
             valueFrom:
               secretKeyRef:

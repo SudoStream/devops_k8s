@@ -91,5 +91,7 @@ else
     exit 1
 fi
 
+kubectl delete secret mongoconnectionuri
+kubectl create secret generic mongoconnectionuri --from-file=mongoconnectionuri=$HOME/.secrets/mongoconnectionuri
 kubectl delete job ${serviceToDeploy}
 kubectl apply -f ./dev/kubernetes-${serviceToDeploy}-job.yaml --record
