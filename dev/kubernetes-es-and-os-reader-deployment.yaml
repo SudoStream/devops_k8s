@@ -15,7 +15,7 @@ spec:
       labels:
         app: es-and-os-reader
         tier: backend
-        bump: bump-8
+        bump: bump-9
     spec:
       imagePullSecrets:
         - name: myregistrykey
@@ -52,7 +52,7 @@ spec:
             - name: "es-and-os-reader-tls"
               mountPath: "/etc/tls"
         - name: es-and-os-reader
-          image: eu.gcr.io/time-to-teach/es-and-os-reader:0.0.1-4
+          image: eu.gcr.io/time-to-teach/es-and-os-reader:0.0.1-5
           imagePullPolicy: IfNotPresent
           env:
             - name: KAFKA_BOOTSTRAP_SERVERS
