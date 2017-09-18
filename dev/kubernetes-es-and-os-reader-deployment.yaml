@@ -52,9 +52,16 @@ spec:
             - name: "es-and-os-reader-tls"
               mountPath: "/etc/tls"
         - name: es-and-os-reader
-          image: eu.gcr.io/time-to-teach/es-and-os-reader:0.0.1-4
+          image: eu.gcr.io/time-to-teach/es-and-os-reader:0.0.1-8
           imagePullPolicy: IfNotPresent
           env:
+            - name: LOCAL_MONGO_DB
+              value: "false"
+            - name: MONGODB_CONNECTION_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mongoconnectionuri
+                  key: mongoconnectionuri
             - name: KAFKA_BOOTSTRAP_SERVERS
               valueFrom:
                 secretKeyRef:
