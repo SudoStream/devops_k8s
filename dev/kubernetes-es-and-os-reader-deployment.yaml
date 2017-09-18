@@ -15,7 +15,7 @@ spec:
       labels:
         app: es-and-os-reader
         tier: backend
-        bump: bump-5
+        bump: bump-12
     spec:
       imagePullSecrets:
         - name: myregistrykey
@@ -52,16 +52,9 @@ spec:
             - name: "es-and-os-reader-tls"
               mountPath: "/etc/tls"
         - name: es-and-os-reader
-          image: eu.gcr.io/time-to-teach/es-and-os-reader:0.0.1-8
+          image: eu.gcr.io/time-to-teach/es-and-os-reader:0.0.1-4
           imagePullPolicy: IfNotPresent
           env:
-            - name: LOCAL_MONGO_DB
-              value: "false"
-            - name: MONGODB_CONNECTION_URI
-              valueFrom:
-                secretKeyRef:
-                  name: mongoconnectionuri
-                  key: mongoconnectionuri
             - name: KAFKA_BOOTSTRAP_SERVERS
               valueFrom:
                 secretKeyRef:
