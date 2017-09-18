@@ -55,6 +55,14 @@ spec:
           image: eu.gcr.io/time-to-teach/es-and-os-reader:0.0.1-10
           imagePullPolicy: IfNotPresent
           env:
+            - name: MONGODB_CONNECTION_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mongoconnectionuri
+                  key: mongoconnectionuri
+                  optional: true
+            - name: LOCAL_MONGO_DB
+              value: "false"
             - name: KAFKA_BOOTSTRAP_SERVERS
               valueFrom:
                 secretKeyRef:
