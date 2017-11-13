@@ -69,7 +69,7 @@ rm -rf ${job_dir}
 #sed -i "s/bump-$oldNum/bump-$newNum/g" dev/kubernetes-${serviceToDeploy}-job.yaml
 
 ################## update the image version of service to latest ####################################
-#image_version="eu.gcr.io\/time-to-teach\/${serviceToDeploy}:${build_version_stripped}"
+#image_version="eu.gcr.io\/time-to-teach-zone\/${serviceToDeploy}:${build_version_stripped}"
 #sed_command="/.*image.*${serviceToDeploy}.*/  s/image:.*$/image: ${image_version}/g"
 #sed -i "${sed_command}" dev/kubernetes-${serviceToDeploy}-job.yaml
 #####################################################################################################
