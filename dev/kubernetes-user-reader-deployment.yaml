@@ -80,12 +80,12 @@ spec:
           livenessProbe:
             httpGet:
               path: /health
-              port: 9037
+              port: 7003
             initialDelaySeconds: 120
             timeoutSeconds: 1
           readinessProbe:
             httpGet:
               path: /health
-              port: 9037
+              port: 7003
             initialDelaySeconds: 120
             timeoutSeconds: 5
