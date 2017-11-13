@@ -41,7 +41,8 @@ spec:
               cpu: 100m
               memory: 128Mi
           ports:
-            - containerPort: 443
+            - containerPort: 7000
+            - containerPort: 7001
           lifecycle:
             preStop:
               exec:
