@@ -20,6 +20,9 @@ spec:
       imagePullSecrets:
         - name: myregistrykey
       volumes:
+        - name: "mongodb-cacerts"
+          secret:
+            secretName: "mongodbkeystore"
         - name: "school-reader-tls"
           secret:
             secretName: "school-reader-tls"
@@ -68,6 +71,9 @@ spec:
                 secretKeyRef:
                   name: kafkasecrets
                   key: kafkabootstrapservers
+          volumeMounts:
+            - name: "mongodb-cacerts"
+              mountPath: "/etc/ssl/"
           resources:
             limits:
               cpu: 100m
@@ -81,11 +87,11 @@ spec:
             httpGet:
               path: /health
               port: 80
-            initialDelaySeconds: 60
+            initialDelaySeconds: 120
             timeoutSeconds: 1
           readinessProbe:
             httpGet:
               path: /health
               port: 80
-            initialDelaySeconds: 60
+            initialDelaySeconds: 120
             timeoutSeconds: 5
