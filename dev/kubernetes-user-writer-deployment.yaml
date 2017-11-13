@@ -15,7 +15,7 @@ spec:
       labels:
         app: user-writer
         tier: backend
-        bump: bump-24
+        bump: bump-27
     spec:
       imagePullSecrets:
         - name: myregistrykey
@@ -78,16 +78,10 @@ spec:
           ports:
             - containerPort: 9041
           livenessProbe:
-            httpGet:
-              path: /health
-              port: 80
-            initialDelaySeconds: 120
-            periodSeconds: 30
-            timeoutSeconds: 1
+            exec:
+              command:
+              - echo 0
           readinessProbe:
-            httpGet:
-              path: /health
-              port: 80
-            initialDelaySeconds: 120
-            periodSeconds: 30
-            timeoutSeconds: 5
+            exec:
+              command:
+              - echo 0
