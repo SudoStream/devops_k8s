@@ -15,7 +15,7 @@ spec:
       labels:
         app: school-reader
         tier: backend
-        bump: bump-16
+        bump: bump-17
     spec:
       imagePullSecrets:
         - name: myregistrykey
@@ -52,7 +52,7 @@ spec:
             - name: "school-reader-tls"
               mountPath: "/etc/tls"
         - name: school-reader
-          image: eu.gcr.io/time-to-teach-zone/school-reader:0.0.1-10
+          image: eu.gcr.io/time-to-teach-zone/school-reader:0.0.1-1
           imagePullPolicy: IfNotPresent
           env:
             - name: MONGODB_CONNECTION_URI
