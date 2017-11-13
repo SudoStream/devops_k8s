@@ -15,7 +15,7 @@ spec:
       labels:
         app: user-writer
         tier: backend
-        bump: bump-19
+        bump: bump-20
     spec:
       imagePullSecrets:
         - name: myregistrykey
@@ -52,7 +52,7 @@ spec:
             - name: "user-writer-tls"
               mountPath: "/etc/tls"
         - name: user-writer
-          image: eu.gcr.io/time-to-teach-zone/user-writer:0.0.1-3
+          image: eu.gcr.io/time-to-teach-zone/user-writer:0.0.1-5
           imagePullPolicy: IfNotPresent
           env:
             - name: MONGODB_CONNECTION_URI
