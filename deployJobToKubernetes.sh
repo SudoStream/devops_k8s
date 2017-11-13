@@ -31,7 +31,9 @@ while test $# -gt 0; do
                         export serviceToDeploy=`echo $1 | sed -e 's/^[^=]*=//g'`
                         shift
                         echo "Deploying ... ${serviceToDeploy}"
-                        if [[ ${serviceToDeploy} != "esandospopulator" ]]; then
+                        if [[  ${serviceToDeploy} != "esandospopulator" && \
+                               ${serviceToDeploy} != "test-populator"
+                         ]]; then
                             echo "ERROR: Job to deploy must be one of 'esandospopulator'"
                             exit 1
                         fi
