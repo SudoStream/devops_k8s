@@ -6,10 +6,12 @@ metadata:
     run: user-writer
 spec:
   ports:
-  - protocol: TCP
+  - name: https
+    protocol: TCP
     port: 7000
     targetPort: 443
-  - protocol: TCP
+  - name: http
+    protocol: TCP
     port: 7001
     targetPort: 80
   selector:

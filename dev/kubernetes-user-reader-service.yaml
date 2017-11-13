@@ -6,12 +6,14 @@ metadata:
     run: user-reader
 spec:
   ports:
-    - port: 7002
-      targetPort: 443
-      protocol: TCP
-    - port: 7003
-      targetPort: 80
-      protocol: TCP
+  - name: https
+    protocol: TCP
+    port: 7000
+    targetPort: 443
+  - name: http
+    protocol: TCP
+    port: 7001
+    targetPort: 80
   selector:
     app: user-reader
   type: LoadBalancer
