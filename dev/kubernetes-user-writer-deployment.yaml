@@ -78,8 +78,10 @@ spec:
           ports:
             - containerPort: 9041
           livenessProbe:
-            command:
-                - echo 0
+            exec:
+              command:
+              - echo 0
           readinessProbe:
-            command:
-                - echo 0
+            exec:
+              command:
+              - echo 0
