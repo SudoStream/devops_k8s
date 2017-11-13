@@ -6,14 +6,14 @@ metadata:
     run: user-writer
 spec:
   ports:
-  - name: https
-    protocol: TCP
-    port: 7000
-    targetPort: 443
-  - name: http
-    protocol: TCP
-    port: 7001
-    targetPort: 80
+    - name: https
+      protocol: TCP
+      port: 7000
+      targetPort: 443
+    - name: http
+      protocol: TCP
+      port: 7001
+      targetPort: 80
   selector:
     app: user-writer
   type: LoadBalancer
