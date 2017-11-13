@@ -66,6 +66,12 @@ spec:
                   optional: true
             - name: LOCAL_MONGO_DB
               value: "false"
+            - name: MONGODB_KEYSTORE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongodbkeystorepassword
+                  key: mongodbkeystorepassword
+                  optional: true
             - name: KAFKA_BOOTSTRAP_SERVERS
               valueFrom:
                 secretKeyRef:
