@@ -78,10 +78,14 @@ spec:
           ports:
             - containerPort: 9041
           livenessProbe:
-            exec:
-              command:
-              - echo 0
+            httpGet:
+              path: /health
+              port: 7001
+            initialDelaySeconds: 120
+            timeoutSeconds: 1
           readinessProbe:
-            exec:
-              command:
-              - echo 0
+            httpGet:
+              path: /health
+              port: 7001
+            initialDelaySeconds: 120
+            timeoutSeconds: 5
