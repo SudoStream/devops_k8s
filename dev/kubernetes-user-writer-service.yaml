@@ -6,8 +6,8 @@ metadata:
     run: user-writer
 spec:
   ports:
-    - port: 443
-      targetPort: 7000
+    - port: 7000
+      targetPort: 7001
       protocol: TCP
   selector:
     app: user-writer
