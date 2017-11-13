@@ -52,7 +52,7 @@ spec:
             - name: "es-and-os-reader-tls"
               mountPath: "/etc/tls"
         - name: es-and-os-reader
-          image: eu.gcr.io/time-to-teach/es-and-os-reader:0.0.1-10
+          image: eu.gcr.io/time-to-teach-zone/es-and-os-reader:0.0.1-10
           imagePullPolicy: IfNotPresent
           env:
             - name: MONGODB_CONNECTION_URI

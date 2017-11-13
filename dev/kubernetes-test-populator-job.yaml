@@ -1,11 +1,11 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: esandospopulator
+  name: test-populator
 spec:
   template:
     metadata:
-      name: esandospopulator
+      name: test-populator
     spec:
       volumes:
         - name: "mongodb-cacerts"
@@ -13,7 +13,7 @@ spec:
             secretName: "mongodbkeystore"
       containers:
       - name: esandospopulator
-        image: eu.gcr.io/time-to-teach-zone/esandospopulator:0.0.27
+        image: eu.gcr.io/time-to-teach-zone/test-populator:0.0.27
         imagePullPolicy: IfNotPresent
         env:
           - name: MONGODB_HOST
