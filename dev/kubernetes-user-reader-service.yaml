@@ -6,8 +6,8 @@ metadata:
     run: user-reader
 spec:
   ports:
-    - port: 443
-      targetPort: 443
+    - port: 7002
+      targetPort: 7003
       protocol: TCP
   selector:
     app: user-reader
