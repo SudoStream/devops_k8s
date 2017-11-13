@@ -15,7 +15,7 @@ spec:
       labels:
         app: user-writer
         tier: backend
-        bump: bump-43
+        bump: bump-44
     spec:
       imagePullSecrets:
         - name: myregistrykey
