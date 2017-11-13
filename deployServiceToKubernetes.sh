@@ -32,7 +32,10 @@ while test $# -gt 0; do
                         shift
                         echo "Deploying ... ${serviceToDeploy}"
                         if [[   ${serviceToDeploy} != "timetoteach-ui-server" && \
-                                ${serviceToDeploy} != "job-esAndOsPopulator" && \
+                                ${serviceToDeploy} != "school-reader" && \
+                                ${serviceToDeploy} != "school-writer" && \
+                                ${serviceToDeploy} != "user-writer" && \
+                                ${serviceToDeploy} != "user-reader" && \
                                 ${serviceToDeploy} != "es-and-os-reader" ]]; then
                             echo "ERROR: Service to deploy must be one of 'job-esAndOsPopulator', 'timetoteach-ui-server' & 'es-and-os-reader'"
                             exit 1
