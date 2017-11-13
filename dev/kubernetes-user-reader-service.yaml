@@ -9,6 +9,9 @@ spec:
     - port: 7002
       targetPort: 443
       protocol: TCP
+    - port: 7003
+      targetPort: 80
+      protocol: TCP
   selector:
     app: user-reader
   type: LoadBalancer
