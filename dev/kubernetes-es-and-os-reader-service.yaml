@@ -6,9 +6,14 @@ metadata:
     run: es-and-os-reader
 spec:
   ports:
-    - port: 443
-      targetPort: 443
+    - name: https
       protocol: TCP
+      port: 7004
+      targetPort: 443
+    - name: http
+      protocol: TCP
+      port: 7005
+      targetPort: 80
   selector:
     app: es-and-os-reader
   type: LoadBalancer

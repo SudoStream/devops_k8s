@@ -6,9 +6,14 @@ metadata:
     run: timetoteach-ui-service
 spec:
   ports:
-    - port: 443
-      targetPort: 443
+    - name: https
       protocol: TCP
+      port: 443
+      targetPort: 443
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
   selector:
     app: timetoteach-ui-server
   type: LoadBalancer
