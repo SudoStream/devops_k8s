@@ -8,11 +8,11 @@ spec:
   ports:
     - name: https
       protocol: TCP
-      port: 7004
+      port: 443
       targetPort: 443
     - name: http
       protocol: TCP
-      port: 7005
+      port: 80
       targetPort: 80
   selector:
     app: es-and-os-reader

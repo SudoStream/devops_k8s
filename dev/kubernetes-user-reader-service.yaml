@@ -8,11 +8,11 @@ spec:
   ports:
     - name: https
       protocol: TCP
-      port: 7000
+      port: 443
       targetPort: 443
     - name: http
       protocol: TCP
-      port: 7001
+      port: 80
       targetPort: 80
   selector:
     app: user-reader
