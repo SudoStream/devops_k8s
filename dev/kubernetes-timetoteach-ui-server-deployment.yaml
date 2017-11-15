@@ -35,10 +35,10 @@ spec:
           imagePullPolicy: Always
           resources:
             limits:
-              cpu: 250m
+              cpu: 200m
               memory: 768Mi
             requests:
-              cpu: 200m
+              cpu: 100m
               memory: 256Mi
           ports:
             - containerPort: 443
@@ -57,10 +57,10 @@ spec:
           imagePullPolicy: Always
           resources:
             limits:
-              cpu: 700m
+              cpu: 500m
               memory: 2048Mi
             requests:
-              cpu: 400m
+              cpu: 300m
               memory: 1024Mi
           volumeMounts:
             - name: "timetoteach-ui-server-tls"

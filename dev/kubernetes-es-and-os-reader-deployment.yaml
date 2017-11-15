@@ -35,10 +35,10 @@ spec:
           imagePullPolicy: Always
           resources:
             limits:
-              cpu: 250m
+              cpu: 200m
               memory: 768Mi
             requests:
-              cpu: 200m
+              cpu: 100m
               memory: 256Mi
           ports:
             - containerPort: 443
@@ -71,10 +71,10 @@ spec:
                   key: kafkabootstrapservers
           resources:
             limits:
-              cpu: 500m
+              cpu: 300m
               memory: 1024Mi
             requests:
-              cpu: 300m
+              cpu: 100m
               memory: 256Mi
           livenessProbe:
             httpGet:
