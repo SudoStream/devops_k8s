@@ -15,7 +15,7 @@ spec:
       labels:
         app: timetoteach-ui-server
         tier: backend
-        bump: bump-104
+        bump: bump-105
     spec:
       imagePullSecrets:
         - name: myregistrykey
