@@ -62,8 +62,6 @@ spec:
             requests:
               cpu: 400m
               memory: 1024Mi
-          ports:
-            - containerPort: 9000
           volumeMounts:
             - name: "timetoteach-ui-server-tls"
               mountPath: "/etc/tls"

@@ -76,8 +76,6 @@ spec:
             requests:
               cpu: 300m
               memory: 256Mi
-          ports:
-            - containerPort: 9030
           livenessProbe:
             httpGet:
               path: /health
