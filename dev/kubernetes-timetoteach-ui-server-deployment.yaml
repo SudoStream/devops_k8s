@@ -36,10 +36,10 @@ spec:
           resources:
             limits:
               cpu: 400m
-              memory: 256Mi
+              memory: 768Mi
             requests:
               cpu: 200m
-              memory: 128Mi
+              memory: 256Mi
           ports:
             - containerPort: 443
             - containerPort: 80
@@ -61,7 +61,7 @@ spec:
               memory: 2048Mi
             requests:
               cpu: 700m
-              memory: 1024
+              memory: 1024Mi
           ports:
             - containerPort: 9000
           volumeMounts:
