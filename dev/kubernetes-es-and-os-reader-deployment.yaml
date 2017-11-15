@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: es-and-os-reader
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: es-and-os-reader
