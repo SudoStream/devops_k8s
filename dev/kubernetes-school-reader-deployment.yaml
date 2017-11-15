@@ -15,7 +15,7 @@ spec:
       labels:
         app: school-reader
         tier: backend
-        bump: bump-37
+        bump: bump-38
     spec:
       imagePullSecrets:
         - name: myregistrykey
