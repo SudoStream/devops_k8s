@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: user-writer
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: user-writer
@@ -35,10 +35,10 @@ spec:
           imagePullPolicy: Always
           resources:
             limits:
-              cpu: 100m
+              cpu: 400m
               memory: 256Mi
             requests:
-              cpu: 100m
+              cpu: 200m
               memory: 128Mi
           ports:
             - containerPort: 443
@@ -54,7 +54,7 @@ spec:
               mountPath: "/etc/tls"
         - name: user-writer
           image: eu.gcr.io/time-to-teach-zone/user-writer:0.0.1-6
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           env:
             - name: MONGODB_CONNECTION_URI
               valueFrom:
@@ -71,10 +71,10 @@ spec:
                   key: kafkabootstrapservers
           resources:
             limits:
-              cpu: 100m
+              cpu: 500m
               memory: 512Mi
             requests:
-              cpu: 100m
+              cpu: 300m
               memory: 256Mi
           ports:
             - containerPort: 9041

@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: timetoteach-ui-server
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: timetoteach-ui-server
@@ -35,10 +35,10 @@ spec:
           imagePullPolicy: Always
           resources:
             limits:
-              cpu: 100m
+              cpu: 400m
               memory: 256Mi
             requests:
-              cpu: 100m
+              cpu: 200m
               memory: 128Mi
           ports:
             - containerPort: 443
@@ -57,10 +57,10 @@ spec:
           imagePullPolicy: Always
           resources:
             limits:
-              cpu: 400m
+              cpu: 1000m
               memory: 2048Mi
             requests:
-              cpu: 400m
+              cpu: 700m
               memory: 1024
           ports:
             - containerPort: 9000

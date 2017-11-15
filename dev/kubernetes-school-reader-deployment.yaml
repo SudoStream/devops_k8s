@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: school-reader
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: school-reader
@@ -38,10 +38,10 @@ spec:
           imagePullPolicy: Always
           resources:
             limits:
-              cpu: 100m
+              cpu: 400m
               memory: 256Mi
             requests:
-              cpu: 100m
+              cpu: 200m
               memory: 128Mi
           ports:
             - containerPort: 443
@@ -57,7 +57,7 @@ spec:
               mountPath: "/etc/tls"
         - name: school-reader
           image: eu.gcr.io/time-to-teach-zone/school-reader:0.0.1-2
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           env:
             - name: MONGODB_CONNECTION_URI
               valueFrom:
@@ -83,10 +83,10 @@ spec:
               mountPath: "/etc/ssl/"
           resources:
             limits:
-              cpu: 100m
+              cpu: 500m
               memory: 512Mi
             requests:
-              cpu: 100m
+              cpu: 300m
               memory: 256Mi
           ports:
             - containerPort: 9039
