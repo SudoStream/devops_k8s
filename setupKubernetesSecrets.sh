@@ -60,3 +60,7 @@ kubectl delete secret kafkasecrets
 kubectl create secret generic kafkasecrets --from-file=kafkabootstrapservers=$HOME/.secrets/kafkabootstrapservers
 kubectl delete secret mongoconnectionuri
 kubectl create secret generic mongoconnectionuri --from-file=mongoconnectionuri=$HOME/.secrets/mongoconnectionuri
+kubectl delete secret timetoteachfacebookid
+kubectl create secret generic timetoteachfacebookid --from-file=timetoteachfacebookid=$HOME/.secrets/timetoteachfacebookid
+kubectl delete secret timetoteachfacebooksecret
+kubectl create secret generic timetoteachfacebooksecret --from-file=timetoteachfacebooksecret=$HOME/.secrets/timetoteachfacebooksecret

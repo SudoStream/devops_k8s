@@ -55,6 +55,19 @@ spec:
         - name: timetoteach-ui-server
           image: eu.gcr.io/time-to-teach-zone/www-time-to-teach:0.0.1-19
           imagePullPolicy: Always
+          env:
+            - name: TIMETOTEACH_FACEBOOK_ID
+              valueFrom:
+                secretKeyRef:
+                  name: timetoteachfacebookid
+                  key: timetoteachfacebookid
+                  optional: true
+            - name: TIMETOTEACH_FACEBOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: timetoteachfacebooksecret
+                  key: timetoteachfacebooksecret
+                  optional: true
           resources:
             limits:
               cpu: 500m
