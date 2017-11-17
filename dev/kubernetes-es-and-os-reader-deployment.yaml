@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: es-and-os-reader
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: es-and-os-reader
@@ -86,5 +86,6 @@ spec:
             httpGet:
               path: /health
               port: 80
+            initialDelaySeconds: 60
             initialDelaySeconds: 60
             timeoutSeconds: 5
