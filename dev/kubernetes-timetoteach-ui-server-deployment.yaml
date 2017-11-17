@@ -15,7 +15,7 @@ spec:
       labels:
         app: timetoteach-ui-server
         tier: backend
-        bump: bump-131
+        bump: bump-130
     spec:
       imagePullSecrets:
         - name: myregistrykey
@@ -53,7 +53,7 @@ spec:
             - name: "timetoteach-ui-server-tls"
               mountPath: "/etc/tls"
         - name: timetoteach-ui-server
-          image: eu.gcr.io/time-to-teach-zone/www-time-to-teach:0.0.1-30
+          image: eu.gcr.io/time-to-teach-zone/www-time-to-teach:latest
           imagePullPolicy: Always
           env:
             - name: TIMETOTEACH_FACEBOOK_ID
