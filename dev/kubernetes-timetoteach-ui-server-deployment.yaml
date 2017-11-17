@@ -53,7 +53,7 @@ spec:
             - name: "timetoteach-ui-server-tls"
               mountPath: "/etc/tls"
         - name: timetoteach-ui-server
-          image: eu.gcr.io/time-to-teach-zone/www-time-to-teach:0.0.1-25
+          image: eu.gcr.io/time-to-teach-zone/www-time-to-teach:0.0.1-26
           imagePullPolicy: Always
           env:
             - name: TIMETOTEACH_FACEBOOK_ID
@@ -70,10 +70,10 @@ spec:
                   optional: true
           resources:
             limits:
-              cpu: 500m
-              memory: 2048Mi
+              cpu: 400m
+              memory: 15368Mi
             requests:
-              cpu: 300m
+              cpu: 200m
               memory: 1024Mi
           volumeMounts:
             - name: "timetoteach-ui-server-tls"
