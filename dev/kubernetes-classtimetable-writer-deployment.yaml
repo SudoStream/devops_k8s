@@ -15,7 +15,7 @@ spec:
       labels:
         app: classtimetable-writer
         tier: backend
-        bump: bump-62
+        bump: bump-64
     spec:
       imagePullSecrets:
         - name: myregistrykey
