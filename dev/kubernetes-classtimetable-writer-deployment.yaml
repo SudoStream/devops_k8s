@@ -53,7 +53,7 @@ spec:
             - name: "classtimetable-writer-tls"
               mountPath: "/etc/tls"
         - name: classtimetable-writer
-          image: eu.gcr.io/time-to-teach-zone/classtimetable-writer:0.0.1-2"
+          image: eu.gcr.io/time-to-teach-zone/classtimetable-writer:latest"
           imagePullPolicy: Always
           env:
             - name: MONGODB_CONNECTION_URI

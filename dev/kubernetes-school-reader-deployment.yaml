@@ -56,7 +56,7 @@ spec:
             - name: "school-reader-tls"
               mountPath: "/etc/tls"
         - name: school-reader
-          image: eu.gcr.io/time-to-teach-zone/school-reader:0.0.1-5
+          image: eu.gcr.io/time-to-teach-zone/school-reader:latest
           imagePullPolicy: Always
           env:
             - name: MONGODB_CONNECTION_URI
