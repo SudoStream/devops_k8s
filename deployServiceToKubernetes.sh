@@ -36,7 +36,7 @@ while test $# -gt 0; do
                                 ${serviceToDeploy} != "school-writer" && \
                                 ${serviceToDeploy} != "user-writer" && \
                                 ${serviceToDeploy} != "user-reader" && \
-                                ${serviceToDeploy} != "classtimetable-reader" && \
+                                ${serviceToDeploy} != "classtimetable-writer" && \
                                 ${serviceToDeploy} != "es-and-os-reader" ]]; then
                             echo "ERROR: Service Name not known"
                             exit 1
