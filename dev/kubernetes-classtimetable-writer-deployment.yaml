@@ -1,34 +1,34 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: user-writer
+  name: classtimetable-writer
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: user-writer
+      app: classtimetable-writer
   strategy:
     type: RollingUpdate
   minReadySeconds: 10
   template:
     metadata:
       labels:
-        app: user-writer
+        app: classtimetable-writer
         tier: backend
         bump: bump-57
     spec:
       imagePullSecrets:
         - name: myregistrykey
       volumes:
-        - name: "user-writer-tls"
+        - name: "classtimetable-writer-tls"
           secret:
-            secretName: "user-writer-tls"
-        - name: "nginx-user-writer-dev-proxf-conf"
+            secretName: "classtimetable-writer-tls"
+        - name: "nginx-classtimetable-writer-dev-proxf-conf"
           configMap:
-            name: "nginx-user-writer-dev-proxf-conf"
+            name: "nginx-classtimetable-writer-dev-proxf-conf"
             items:
-              - key: "nginx-user-writer.conf"
-                path: "nginx-user-writer.conf"
+              - key: "nginx-classtimetable-writer.conf"
+                path: "nginx-classtimetable-writer.conf"
       containers:
         - name: nginx
           image: nginx:1.7.9
@@ -48,12 +48,12 @@ spec:
               exec:
                 command: ["/usr/sbin/nginx", "-s", "quit"]
           volumeMounts:
-            - name: "nginx-user-writer-dev-proxf-conf"
+            - name: "nginx-classtimetable-writer-dev-proxf-conf"
               mountPath: "/etc/nginx/conf.d"
-            - name: "user-writer-tls"
+            - name: "classtimetable-writer-tls"
               mountPath: "/etc/tls"
-        - name: user-writer
-          image: eu.gcr.io/time-to-teach-zone/user-writer:latest
+        - name: classtimetable-writer
+          image: eu.gcr.io/time-to-teach-zone/classtimetable-writer:latest
           imagePullPolicy: Always
           env:
             - name: MONGODB_CONNECTION_URI

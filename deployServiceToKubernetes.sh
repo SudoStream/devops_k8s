@@ -36,8 +36,9 @@ while test $# -gt 0; do
                                 ${serviceToDeploy} != "school-writer" && \
                                 ${serviceToDeploy} != "user-writer" && \
                                 ${serviceToDeploy} != "user-reader" && \
+                                ${serviceToDeploy} != "classtimetable-reader" && \
                                 ${serviceToDeploy} != "es-and-os-reader" ]]; then
-                            echo "ERROR: Service to deploy must be one of 'job-esAndOsPopulator', 'timetoteach-ui-server' & 'es-and-os-reader'"
+                            echo "ERROR: Service Name not known"
                             exit 1
                         fi
                         ;;
