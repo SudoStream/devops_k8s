@@ -15,7 +15,7 @@ spec:
       labels:
         app: user-reader
         tier: backend
-        bump: bump-31
+        bump: bump-37
     spec:
       imagePullSecrets:
         - name: myregistrykey
@@ -53,7 +53,7 @@ spec:
             - name: "user-reader-tls"
               mountPath: "/etc/tls"
         - name: user-reader
-          image: eu.gcr.io/time-to-teach-zone/user-reader:latest
+          image: eu.gcr.io/time-to-teach-zone/user-reader:0.0.1-9
           imagePullPolicy: Always
           env:
             - name: MONGODB_CONNECTION_URI
