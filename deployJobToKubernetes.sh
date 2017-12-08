@@ -94,4 +94,8 @@ else
 fi
 
 kubectl delete job ${serviceToDeploy}
-kubectl apply -f ./dev/kubernetes-${serviceToDeploy}-job.yaml --record
+if [[ ${deploymentType} == "local" ]]; then
+    kubectl apply -f ./local/kubernetes-${serviceToDeploy}-job.yaml --record
+else
+    kubectl apply -f ./dev/kubernetes-${serviceToDeploy}-job.yaml --record
+fi

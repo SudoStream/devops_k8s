@@ -1,0 +1,91 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: es-and-os-reader
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: es-and-os-reader
+  strategy:
+    type: RollingUpdate
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: es-and-os-reader
+        tier: backend
+        bump: bump-52
+    spec:
+      imagePullSecrets:
+        - name: myregistrykey
+      volumes:
+        - name: "es-and-os-reader-tls"
+          secret:
+            secretName: "es-and-os-reader-tls"
+        - name: "nginx-es-and-os-reader-dev-proxf-conf"
+          configMap:
+            name: "nginx-es-and-os-reader-dev-proxf-conf"
+            items:
+              - key: "nginx-es-and-os-reader.conf"
+                path: "nginx-es-and-os-reader.conf"
+      containers:
+        - name: nginx
+          image: nginx:1.7.9
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 200m
+              memory: 768Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          ports:
+            - containerPort: 443
+            - containerPort: 80
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/usr/sbin/nginx", "-s", "quit"]
+          volumeMounts:
+            - name: "nginx-es-and-os-reader-dev-proxf-conf"
+              mountPath: "/etc/nginx/conf.d"
+            - name: "es-and-os-reader-tls"
+              mountPath: "/etc/tls"
+        - name: es-and-os-reader
+          image: eu.gcr.io/time-to-teach-zone/es-and-os-reader:latest
+          imagePullPolicy: Always
+          env:
+            - name: MONGODB_CONNECTION_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mongoconnectionuri
+                  key: mongoconnectionuri
+                  optional: true
+            - name: LOCAL_MONGO_DB
+              value: "false"
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              valueFrom:
+                secretKeyRef:
+                  name: kafkasecrets
+                  key: kafkabootstrapservers
+          resources:
+            limits:
+              cpu: 200m
+              memory: 768Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 60
+            timeoutSeconds: 1
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 60
+            initialDelaySeconds: 60
+            timeoutSeconds: 5

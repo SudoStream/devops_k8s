@@ -1,0 +1,90 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: classtimetable-writer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: classtimetable-writer
+  strategy:
+    type: RollingUpdate
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: classtimetable-writer
+        tier: backend
+        bump: bump-65
+    spec:
+      imagePullSecrets:
+        - name: myregistrykey
+      volumes:
+        - name: "classtimetable-writer-tls"
+          secret:
+            secretName: "classtimetable-writer-tls"
+        - name: "nginx-classtimetable-writer-dev-proxf-conf"
+          configMap:
+            name: "nginx-classtimetable-writer-dev-proxf-conf"
+            items:
+              - key: "nginx-classtimetable-writer.conf"
+                path: "nginx-classtimetable-writer.conf"
+      containers:
+        - name: nginx
+          image: nginx:1.7.9
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 200m
+              memory: 768Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          ports:
+            - containerPort: 443
+            - containerPort: 80
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/usr/sbin/nginx", "-s", "quit"]
+          volumeMounts:
+            - name: "nginx-classtimetable-writer-dev-proxf-conf"
+              mountPath: "/etc/nginx/conf.d"
+            - name: "classtimetable-writer-tls"
+              mountPath: "/etc/tls"
+        - name: classtimetable-writer
+          image: eu.gcr.io/time-to-teach-zone/classtimetable-writer:latest
+          imagePullPolicy: Always
+          env:
+            - name: MONGODB_CONNECTION_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mongoconnectionuri
+                  key: mongoconnectionuri
+                  optional: true
+            - name: LOCAL_MONGO_DB
+              value: "false"
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              valueFrom:
+                secretKeyRef:
+                  name: kafkasecrets
+                  key: kafkabootstrapservers
+          resources:
+            limits:
+              cpu: 200m
+              memory: 768Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 60
+            timeoutSeconds: 1
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 60
+            timeoutSeconds: 5
