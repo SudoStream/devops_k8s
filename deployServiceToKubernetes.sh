@@ -101,5 +101,16 @@ kubectl delete --ignore-not-found secret ${serviceToDeploy}-tls
 kubectl create secret generic ${serviceToDeploy}-tls --from-file $HOME/.ssh/certs
 kubectl delete --ignore-not-found configmap nginx-${serviceToDeploy}-dev-proxf-conf
 kubectl create configmap nginx-${serviceToDeploy}-dev-proxf-conf --from-file ./dev/nginx-${serviceToDeploy}.conf
-kubectl apply -f ./dev/kubernetes-${serviceToDeploy}-service.yaml --record
-kubectl apply -f ./dev/kubernetes-${serviceToDeploy}-deployment.yaml --record
+if [[ ${deploymentType} == "local" ]]; then
+    kubectl apply -f ./local/kubernetes-${serviceToDeploy}-service.yaml --record
+else
+    kubectl apply -f ./dev/kubernetes-${serviceToDeploy}-service.yaml --record
+fi
+
+if [[ ${deploymentType} == "local" ]]; then
+    kubectl apply -f ./local/kubernetes-${serviceToDeploy}-deployment.yaml --record
+else
+    kubectl apply -f ./dev/kubernetes-${serviceToDeploy}-deployment.yaml --record
+fi
+
+
