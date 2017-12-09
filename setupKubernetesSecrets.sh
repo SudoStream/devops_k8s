@@ -41,7 +41,7 @@ if [[ ${deploymentType} == "local" ]]; then
     kubectl delete secret myregistrykey
     kubectl create secret docker-registry myregistrykey --docker-server=https://eu.gcr.io \
                     --docker-username=oauth2accesstoken \
-                    --docker-password=${accessToken} --docker-email=andy@sudostream.io
+                    --docker-password=${accessToken} --docker-email=andy@timetoteach.zone
 elif [[ ${deploymentType} == "cloud" ]]; then
     gcloud container clusters get-credentials timetoteach-dev-cluster
 
