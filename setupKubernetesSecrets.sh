@@ -36,6 +36,7 @@ if [[ ${deploymentType} == "" ]]; then
     exit 1
 fi
 
+
 if [[ ${deploymentType} == "local" ]]; then
     #accessToken=`gcloud auth print-access-token`
     #kubectl delete secret myregistrykey
