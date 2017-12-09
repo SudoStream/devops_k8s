@@ -82,10 +82,10 @@ sed -i "s/bump-$oldNum/bump-$newNum/g" dev/kubernetes-${serviceToDeploy}-deploym
 
 if [[ ${deploymentType} == "local" ]]; then
     accessToken=`gcloud auth print-access-token`
-#    kubectl delete secret myregistrykey
-#    kubectl create secret docker-registry myregistrykey --docker-server=https://eu.gcr.io \
-#                    --docker-username=oauth2accesstoken \
-#                    --docker-password=${accessToken} --docker-email=andy@sudostream.io
+    kubectl delete secret myregistrykey
+    kubectl create secret docker-registry myregistrykey --docker-server=https://eu.gcr.io \
+                    --docker-username=oauth2accesstoken \
+                    --docker-password=${accessToken} --docker-email=andy@timetoteach.zone
 elif [[ ${deploymentType} == "cloud" ]]; then
     gcloud container clusters get-credentials timetoteach-dev-cluster
 
