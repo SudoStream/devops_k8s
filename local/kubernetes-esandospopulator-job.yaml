@@ -16,34 +16,34 @@ spec:
           secret:
             secretName: "mongodbkeystore"
       containers:
-      - name: esandospopulator
-        image: eu.gcr.io/time-to-teach-zone/esandospopulator:latest
-        imagePullPolicy: Always
-        env:
-          - name: MONGODB_HOST
-            value: "10.0.2.2"
-          - name: MONGODB_PORT
-            value: "27017"
-          - name: MONGODB_CONNECTION_URI
-            valueFrom:
-              secretKeyRef:
-                name: mongoconnectionuri
-                key: mongoconnectionuri
-                optional: true
-          - name: MONGODB_KEYSTORE_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: mongodbkeystorepassword
-                key: mongodbkeystorepassword
-                optional: true
-        volumeMounts:
-          - name: "mongodb-cacerts"
-            mountPath: "/etc/ssl/"
-        resources:
-          limits:
-            cpu: 300m
-            memory: 1024Mi
-          requests:
-            cpu: 200m
-            memory: 512Mi
+        - name: esandospopulator
+          image: eu.gcr.io/time-to-teach-zone/esandospopulator:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: MONGODB_HOST
+              value: "10.0.2.2"
+            - name: MONGODB_PORT
+              value: "27017"
+            - name: MONGODB_CONNECTION_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mongoconnectionuri
+                  key: mongoconnectionuri
+                  optional: true
+            - name: MONGODB_KEYSTORE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongodbkeystorepassword
+                  key: mongodbkeystorepassword
+                  optional: true
+          volumeMounts:
+            - name: "mongodb-cacerts"
+              mountPath: "/etc/ssl/"
+          resources:
+            limits:
+              cpu: 300m
+              memory: 1024Mi
+            requests:
+              cpu: 200m
+              memory: 512Mi
       restartPolicy: Never
