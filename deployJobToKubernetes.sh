@@ -82,6 +82,7 @@ if [[ ${deploymentType} == "local" ]]; then
     kubectl create secret docker-registry myregistrykey --docker-server=https://eu.gcr.io \
                     --docker-username=oauth2accesstoken \
                     --docker-password=${accessToken} --docker-email=andy@sudostream.io
+    sbt docker:publishLocal
 elif [[ ${deploymentType} == "cloud" ]]; then
     gcloud container clusters get-credentials timetoteach-dev-cluster
 
