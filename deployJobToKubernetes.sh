@@ -66,9 +66,9 @@ cd ${curr_dir}
 rm -rf ${job_dir}
 
 # bump the label number
-#oldNum=`cat dev/kubernetes-${serviceToDeploy}-job.yaml | grep bump | cut -d "-" -f2`
-#newNum=`expr $oldNum + 1`
-#sed -i "s/bump-$oldNum/bump-$newNum/g" dev/kubernetes-${serviceToDeploy}-job.yaml
+oldNum=`cat dev/kubernetes-${serviceToDeploy}-job.yaml | grep bump | cut -d "-" -f2`
+newNum=`expr $oldNum + 1`
+sed -i "s/bump-$oldNum/bump-$newNum/g" dev/kubernetes-${serviceToDeploy}-job.yaml
 
 ################## update the image version of service to latest ####################################
 #image_version="eu.gcr.io\/time-to-teach-zone\/${serviceToDeploy}:${build_version_stripped}"
@@ -86,8 +86,8 @@ elif [[ ${deploymentType} == "cloud" ]]; then
     gcloud container clusters get-credentials timetoteach-dev-cluster
 
     git add dev/kubernetes-${serviceToDeploy}-job.yaml
-#    git commit -m "bump"
-#    git push -u origin master
+    git commit -m "bump"
+    git push -u origin master
 else
     echo "ERROR: must specify 'local' or 'cloud' run"
     exit 1

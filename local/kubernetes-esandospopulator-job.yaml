@@ -6,6 +6,10 @@ spec:
   template:
     metadata:
       name: esandospopulator
+      labels:
+        app: esandospopulator
+        tier: backend
+        bump: bump-1
     spec:
       volumes:
         - name: "mongodb-cacerts"
