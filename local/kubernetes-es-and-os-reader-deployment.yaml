@@ -64,6 +64,8 @@ spec:
                   optional: true
             - name: LOCAL_MONGO_DB
               value: "false"
+            - name: MINIKUBE_RUN
+              value: "true"
             - name: KAFKA_BOOTSTRAP_SERVERS
               valueFrom:
                 secretKeyRef:
