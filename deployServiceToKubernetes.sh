@@ -102,6 +102,7 @@ kubectl create secret generic ${serviceToDeploy}-tls --from-file $HOME/.ssh/cert
 kubectl delete --ignore-not-found configmap nginx-${serviceToDeploy}-dev-proxf-conf
 kubectl create configmap nginx-${serviceToDeploy}-dev-proxf-conf --from-file ./dev/nginx-${serviceToDeploy}.conf
 if [[ ${deploymentType} == "local" ]]; then
+    kubectl delete deployment ${serviceToDeploy}
     kubectl apply -f ./local/kubernetes-${serviceToDeploy}-service.yaml --record
 else
     kubectl apply -f ./dev/kubernetes-${serviceToDeploy}-service.yaml --record
