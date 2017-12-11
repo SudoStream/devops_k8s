@@ -53,8 +53,8 @@ spec:
             - name: "user-writer-tls"
               mountPath: "/etc/tls"
         - name: user-writer
-          image: eu.gcr.io/time-to-teach-zone/user-writer:IfNotPresent
-          imagePullPolicy: Always
+          image: eu.gcr.io/time-to-teach-zone/user-writer:latest
+          imagePullPolicy: IfNotPresent
           env:
             - name: MONGODB_CONNECTION_URI
               valueFrom:

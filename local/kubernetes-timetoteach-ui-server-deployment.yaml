@@ -53,8 +53,8 @@ spec:
             - name: "timetoteach-ui-server-tls"
               mountPath: "/etc/tls"
         - name: timetoteach-ui-server
-          image: eu.gcr.io/time-to-teach-zone/www-time-to-teach:IfNotPresent
-          imagePullPolicy: Always
+          image: eu.gcr.io/time-to-teach-zone/www-time-to-teach:latest
+          imagePullPolicy: IfNotPresent
           env:
             - name: TIMETOTEACH_FACEBOOK_ID
               valueFrom:
