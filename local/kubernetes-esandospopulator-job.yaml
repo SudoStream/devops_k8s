@@ -17,7 +17,7 @@ spec:
             secretName: "mongodbkeystore"
       containers:
         - name: esandospopulator
-          image: eu.gcr.io/time-to-teach-zone/esandospopulator:latest
+          image: eu.gcr.io/time-to-teach-zone/ERROR-esandospopulator:latest
           imagePullPolicy: Always
           env:
             - name: MONGODB_HOST
