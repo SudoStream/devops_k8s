@@ -78,11 +78,11 @@ sed -i "s/bump-$oldNum/bump-$newNum/g" dev/kubernetes-${serviceToDeploy}-job.yam
 
 if [[ ${deploymentType} == "local" ]]; then
     echo "-----------------------------------'local'"
-    accessToken=`gcloud auth print-access-token`
-    kubectl delete secret myregistrykey
-    kubectl create secret docker-registry myregistrykey --docker-server=https://eu.gcr.io \
-                    --docker-username=oauth2accesstoken \
-                    --docker-password=${accessToken} --docker-email=andy@timetoteach.zone
+#    accessToken=`gcloud auth print-access-token`
+#    kubectl delete secret myregistrykey
+#    kubectl create secret docker-registry myregistrykey --docker-server=https://eu.gcr.io \
+#                    --docker-username=oauth2accesstoken \
+#                    --docker-password=${accessToken} --docker-email=andy@timetoteach.zone
 elif [[ ${deploymentType} == "cloud" ]]; then
     echo "-----------------------------------'local'"
     gcloud container clusters get-credentials timetoteach-dev-cluster
@@ -97,7 +97,6 @@ fi
 
 kubectl delete job ${serviceToDeploy}
 if [[ ${deploymentType} == "local" ]]; then
-    kubectl delete deployment ${serviceToDeploy}
     kubectl apply -f ./local/kubernetes-${serviceToDeploy}-job.yaml --record
 else
     kubectl apply -f ./dev/kubernetes-${serviceToDeploy}-job.yaml --record
