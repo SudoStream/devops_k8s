@@ -54,7 +54,7 @@ spec:
               mountPath: "/etc/tls"
         - name: user-reader
           image: eu.gcr.io/time-to-teach-zone/user-reader:0.0.1-10
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           env:
             - name: MONGODB_CONNECTION_URI
               valueFrom:
