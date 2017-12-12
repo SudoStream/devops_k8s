@@ -1,38 +1,38 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: user-reader
+  name: classtimetable-reader
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: user-reader
+      app: classtimetable-reader
   strategy:
     type: RollingUpdate
   minReadySeconds: 10
   template:
     metadata:
       labels:
-        app: user-reader
+        app: classtimetable-reader
         tier: backend
-        bump: bump-58
+        bump: bump-65
     spec:
       imagePullSecrets:
         - name: myregistrykey
       volumes:
-        - name: "user-reader-tls"
+        - name: "classtimetable-reader-tls"
           secret:
-            secretName: "user-reader-tls"
-        - name: "nginx-user-reader-dev-proxf-conf"
+            secretName: "classtimetable-reader-tls"
+        - name: "nginx-classtimetable-reader-dev-proxf-conf"
           configMap:
-            name: "nginx-user-reader-dev-proxf-conf"
+            name: "nginx-classtimetable-reader-dev-proxf-conf"
             items:
-              - key: "nginx-user-reader.conf"
-                path: "nginx-user-reader.conf"
+              - key: "nginx-classtimetable-reader.conf"
+                path: "nginx-classtimetable-reader.conf"
       containers:
         - name: nginx
           image: nginx:1.7.9
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           resources:
             limits:
               cpu: 200m
@@ -48,13 +48,13 @@ spec:
               exec:
                 command: ["/usr/sbin/nginx", "-s", "quit"]
           volumeMounts:
-            - name: "nginx-user-reader-dev-proxf-conf"
+            - name: "nginx-classtimetable-reader-dev-proxf-conf"
               mountPath: "/etc/nginx/conf.d"
-            - name: "user-reader-tls"
+            - name: "classtimetable-reader-tls"
               mountPath: "/etc/tls"
-        - name: user-reader
-          image: eu.gcr.io/time-to-teach-zone/user-reader:latest
-          imagePullPolicy: Always
+        - name: classtimetable-reader
+          image: eu.gcr.io/time-to-teach-zone/classtimetable-reader:latest
+          imagePullPolicy: IfNotPresent
           env:
             - name: MONGODB_CONNECTION_URI
               valueFrom:
@@ -71,8 +71,8 @@ spec:
                   key: kafkabootstrapservers
           resources:
             limits:
-              cpu: 300m
-              memory: 1024Mi
+              cpu: 200m
+              memory: 768Mi
             requests:
               cpu: 100m
               memory: 256Mi

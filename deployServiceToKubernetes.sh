@@ -57,22 +57,22 @@ if [[ ${serviceToDeploy} == "" || ${deploymentType} == "" ]]; then
     exit 1
 fi
 
-curr_dir=`pwd`
-
-svc_dir=`mktemp -d` && cd ${svc_dir}
-git clone git@github.com:SudoStream/svc_${serviceToDeploy}.git
-cd svc_${serviceToDeploy}
-
-build_version_in_quotes=`cat build.sbt  | grep "version :=" | awk '{print $3}'  `
-build_version_stripped=`echo ${build_version_in_quotes:1:-1} `
-
-cd ${curr_dir}
-rm -rf ${svc_dir}
+#curr_dir=`pwd`
+#
+#svc_dir=`mktemp -d` && cd ${svc_dir}
+#git clone git@github.com:SudoStream/svc_${serviceToDeploy}.git
+#cd svc_${serviceToDeploy}
+#
+#build_version_in_quotes=`cat build.sbt  | grep "version :=" | awk '{print $3}'  `
+#build_version_stripped=`echo ${build_version_in_quotes:1:-1} `
+#
+#cd ${curr_dir}
+#rm -rf ${svc_dir}
 
 # bump the label number
 oldNum=`cat dev/kubernetes-${serviceToDeploy}-deployment.yaml | grep bump | cut -d "-" -f2`
 newNum=`expr $oldNum + 1`
-sed -i "s/bump-$oldNum/bump-$newNum/g" dev/kubernetes-${serviceToDeploy}-deployment.yaml
+sed -i "s/bump-$oldNum/bump-$newNum/g" ${deploymentType}/kubernetes-${serviceToDeploy}-deployment.yaml
 
 ################## update the image version of service to latest ####################################
 #image_version="eu.gcr.io\/time-to-teach-zone\/${serviceToDeploy}:${build_version_stripped}"
