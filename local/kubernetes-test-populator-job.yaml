@@ -20,6 +20,8 @@ spec:
             value: "10.0.2.2"
           - name: MONGODB_PORT
             value: "27017"
+          - name: MINIKUBE_RUN
+            value: "true"
           - name: MONGODB_CONNECTION_URI
             valueFrom:
               secretKeyRef:
