@@ -53,17 +53,17 @@ if [[ ${serviceToDeploy} == "" || ${deploymentType} == "" ]]; then
     exit 1
 fi
 
-curr_dir=`pwd`
-
-job_dir=`mktemp -d` && cd ${job_dir}
-git clone git@github.com:SudoStream/job_${serviceToDeploy}.git
-cd job_${serviceToDeploy}
-
-build_version_in_quotes=`cat build.sbt  | grep "version :=" | awk '{print $3}'  `
-build_version_stripped=`echo ${build_version_in_quotes:1:-1} `
-
-cd ${curr_dir}
-rm -rf ${job_dir}
+#curr_dir=`pwd`
+#
+#job_dir=`mktemp -d` && cd ${job_dir}
+#git clone git@github.com:SudoStream/job_${serviceToDeploy}.git
+#cd job_${serviceToDeploy}
+#
+#build_version_in_quotes=`cat build.sbt  | grep "version :=" | awk '{print $3}'  `
+#build_version_stripped=`echo ${build_version_in_quotes:1:-1} `
+#
+#cd ${curr_dir}
+#rm -rf ${job_dir}
 
 # bump the label number
 oldNum=`cat dev/kubernetes-${serviceToDeploy}-job.yaml | grep bump | cut -d "-" -f2`
