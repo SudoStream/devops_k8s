@@ -20,9 +20,6 @@ spec:
       imagePullSecrets:
         - name: myregistrykey
       volumes:
-        - name: "mongodb-cacerts"
-          secret:
-            secretName: "mongodbkeystore"
         - name: "school-reader-tls"
           secret:
             secretName: "school-reader-tls"
