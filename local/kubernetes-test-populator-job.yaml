@@ -14,7 +14,7 @@ spec:
       containers:
       - name: esandospopulator
         image: eu.gcr.io/time-to-teach-zone/test-populator:latest
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         env:
           - name: MONGODB_HOST
             value: "10.0.2.2"

@@ -54,7 +54,7 @@ spec:
               mountPath: "/etc/tls"
         - name: timetoteach-ui-server
           image: eu.gcr.io/time-to-teach-zone/www-time-to-teach:latest
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           env:
             - name: TIMETOTEACH_FACEBOOK_ID
               valueFrom:
