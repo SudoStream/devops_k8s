@@ -15,7 +15,7 @@ spec:
       labels:
         app: classtimetable-reader
         tier: backend
-        bump: bump-65
+        bump: bump-70
     spec:
       imagePullSecrets:
         - name: myregistrykey
@@ -29,9 +29,6 @@ spec:
             items:
               - key: "nginx-classtimetable-reader.conf"
                 path: "nginx-classtimetable-reader.conf"
-        - name: "mongodb-cacerts"
-          secret:
-            secretName: "mongodbkeystore"
       containers:
         - name: nginx
           image: nginx:1.7.9
@@ -59,28 +56,19 @@ spec:
           image: eu.gcr.io/time-to-teach-zone/classtimetable-reader:latest
           imagePullPolicy: Always
           env:
-            - name: MONGODB_HOST
-              value: "10.0.2.2"
-            - name: MONGODB_PORT
-              value: "27017"
-            - name: LOCAL_MONGO_DB
-              value: "false"
-            - name: MINIKUBE_RUN
-              value: "true"
             - name: MONGODB_CONNECTION_URI
               valueFrom:
                 secretKeyRef:
                   name: mongoconnectionuri
                   key: mongoconnectionuri
                   optional: true
+            - name: LOCAL_MONGO_DB
+              value: "false"
             - name: KAFKA_BOOTSTRAP_SERVERS
               valueFrom:
                 secretKeyRef:
                   name: kafkasecrets
                   key: kafkabootstrapservers
-          volumeMounts:
-            - name: "mongodb-cacerts"
-              mountPath: "/etc/ssl/"
           resources:
             limits:
               cpu: 200m
