@@ -66,7 +66,7 @@ sed -i "s/bump-$oldNum/bump-$newNum/g" ${K8S_ENV_TYPE}/kubernetes-${serviceToDep
 if [[ ${deploymentType} == "local" ]]; then
     echo "-----------------------------------'local'"
 elif [[ ${deploymentType} == "cloud" ]]; then
-    echo "-----------------------------------'local'"
+    echo "-----------------------------------'cloud'"
     gcloud container clusters get-credentials timetoteach-dev-cluster
 
     git add ${K8S_ENV_TYPE}/kubernetes-${serviceToDeploy}-job.yaml
