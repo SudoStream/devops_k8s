@@ -58,28 +58,17 @@ if [[ ${serviceToDeploy} == "" || ${deploymentType} == "" ]]; then
     exit 1
 fi
 
-#curr_dir=`pwd`
-#
-#svc_dir=`mktemp -d` && cd ${svc_dir}
-#git clone git@github.com:SudoStream/svc_${serviceToDeploy}.git
-#cd svc_${serviceToDeploy}
-#
-#build_version_in_quotes=`cat build.sbt  | grep "version :=" | awk '{print $3}'  `
-#build_version_stripped=`echo ${build_version_in_quotes:1:-1} `
-#
-#cd ${curr_dir}
-#rm -rf ${svc_dir}
+if [[ ${deploymentType} == "local" ]]; then
+    K8S_ENV_TYPE="local"
+elif [[ ${deploymentType} == "cloud" ]]; then
+    K8S_ENV_TYPE="dev"
+fi
+
 
 # bump the label number
-oldNum=`cat dev/kubernetes-${serviceToDeploy}-deployment.yaml | grep bump | cut -d "-" -f2`
+oldNum=`cat ${K8S_ENV_TYPE}/kubernetes-${serviceToDeploy}-deployment.yaml | grep bump | cut -d "-" -f2`
 newNum=`expr $oldNum + 1`
 sed -i "s/bump-$oldNum/bump-$newNum/g" ${deploymentType}/kubernetes-${serviceToDeploy}-deployment.yaml
-
-################## update the image version of service to latest ####################################
-#image_version="eu.gcr.io\/time-to-teach-zone\/${serviceToDeploy}:${build_version_stripped}"
-#sed_command="/.*image.*${serviceToDeploy}.*/  s/image:.*$/image: ${image_version}/g"
-#sed -i "${sed_command}" dev/kubernetes-${serviceToDeploy}-deployment.yaml
-#####################################################################################################
 
 if [[ ${deploymentType} == "local" ]]; then
     accessToken=`gcloud auth print-access-token`
@@ -90,7 +79,7 @@ if [[ ${deploymentType} == "local" ]]; then
 elif [[ ${deploymentType} == "cloud" ]]; then
     gcloud container clusters get-credentials timetoteach-dev-cluster
 
-    git add dev/kubernetes-${serviceToDeploy}-deployment.yaml
+    git add ${K8S_ENV_TYPE}/kubernetes-${serviceToDeploy}-deployment.yaml
     git commit -m "bump"
     git push -u origin master
 else
@@ -101,18 +90,7 @@ fi
 kubectl delete --ignore-not-found secret ${serviceToDeploy}-tls
 kubectl create secret generic ${serviceToDeploy}-tls --from-file $HOME/.ssh/certs
 kubectl delete --ignore-not-found configmap nginx-${serviceToDeploy}-dev-proxf-conf
-kubectl create configmap nginx-${serviceToDeploy}-dev-proxf-conf --from-file ./dev/nginx-${serviceToDeploy}.conf
-if [[ ${deploymentType} == "local" ]]; then
-    kubectl delete deployment ${serviceToDeploy}
-    kubectl apply -f ./local/kubernetes-${serviceToDeploy}-service.yaml --record
-else
-    kubectl apply -f ./dev/kubernetes-${serviceToDeploy}-service.yaml --record
-fi
-
-if [[ ${deploymentType} == "local" ]]; then
-    kubectl apply -f ./local/kubernetes-${serviceToDeploy}-deployment.yaml --record
-else
-    kubectl apply -f ./dev/kubernetes-${serviceToDeploy}-deployment.yaml --record
-fi
-
+kubectl create configmap nginx-${serviceToDeploy}-dev-proxf-conf --from-file ./${K8S_ENV_TYPE}/nginx-${serviceToDeploy}.conf
+kubectl apply -f ./${K8S_ENV_TYPE}/kubernetes-${serviceToDeploy}-service.yaml --record
+kubectl apply -f ./${K8S_ENV_TYPE}/kubernetes-${serviceToDeploy}-deployment.yaml --record
 

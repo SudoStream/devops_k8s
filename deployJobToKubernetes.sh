@@ -53,41 +53,23 @@ if [[ ${serviceToDeploy} == "" || ${deploymentType} == "" ]]; then
     exit 1
 fi
 
-#curr_dir=`pwd`
-#
-#job_dir=`mktemp -d` && cd ${job_dir}
-#git clone git@github.com:SudoStream/job_${serviceToDeploy}.git
-#cd job_${serviceToDeploy}
-#
-#build_version_in_quotes=`cat build.sbt  | grep "version :=" | awk '{print $3}'  `
-#build_version_stripped=`echo ${build_version_in_quotes:1:-1} `
-#
-#cd ${curr_dir}
-#rm -rf ${job_dir}
+if [[ ${deploymentType} == "local" ]]; then
+    K8S_ENV_TYPE="local"
+elif [[ ${deploymentType} == "cloud" ]]; then
+    K8S_ENV_TYPE="dev"
+fi
 
-# bump the label number
-oldNum=`cat dev/kubernetes-${serviceToDeploy}-job.yaml | grep bump | cut -d "-" -f2`
+oldNum=`cat ${K8S_ENV_TYPE}/kubernetes-${serviceToDeploy}-job.yaml | grep bump | cut -d "-" -f2`
 newNum=`expr $oldNum + 1`
-sed -i "s/bump-$oldNum/bump-$newNum/g" dev/kubernetes-${serviceToDeploy}-job.yaml
-
-################## update the image version of service to latest ####################################
-#image_version="eu.gcr.io\/time-to-teach-zone\/${serviceToDeploy}:${build_version_stripped}"
-#sed_command="/.*image.*${serviceToDeploy}.*/  s/image:.*$/image: ${image_version}/g"
-#sed -i "${sed_command}" dev/kubernetes-${serviceToDeploy}-job.yaml
-#####################################################################################################
+sed -i "s/bump-$oldNum/bump-$newNum/g" ${K8S_ENV_TYPE}/kubernetes-${serviceToDeploy}-job.yaml
 
 if [[ ${deploymentType} == "local" ]]; then
     echo "-----------------------------------'local'"
-#    accessToken=`gcloud auth print-access-token`
-#    kubectl delete secret myregistrykey
-#    kubectl create secret docker-registry myregistrykey --docker-server=https://eu.gcr.io \
-#                    --docker-username=oauth2accesstoken \
-#                    --docker-password=${accessToken} --docker-email=andy@timetoteach.zone
 elif [[ ${deploymentType} == "cloud" ]]; then
     echo "-----------------------------------'local'"
     gcloud container clusters get-credentials timetoteach-dev-cluster
 
-    git add dev/kubernetes-${serviceToDeploy}-job.yaml
+    git add ${K8S_ENV_TYPE}/kubernetes-${serviceToDeploy}-job.yaml
     git commit -m "bump"
     git push -u origin master
 else
@@ -96,8 +78,4 @@ else
 fi
 
 kubectl delete job ${serviceToDeploy}
-if [[ ${deploymentType} == "local" ]]; then
-    kubectl apply -f ./local/kubernetes-${serviceToDeploy}-job.yaml --record
-else
-    kubectl apply -f ./dev/kubernetes-${serviceToDeploy}-job.yaml --record
-fi
+kubectl apply -f ./${K8S_ENV_TYPE}/kubernetes-${serviceToDeploy}-job.yaml --record

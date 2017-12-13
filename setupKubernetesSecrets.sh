@@ -46,7 +46,7 @@ if [[ ${deploymentType} == "local" ]]; then
 elif [[ ${deploymentType} == "cloud" ]]; then
     gcloud container clusters get-credentials timetoteach-dev-cluster
 
-    git add dev/kubernetes-${serviceToDeploy}-deployment.yaml
+    git add ${K8S_ENV_TYPE}/kubernetes-${serviceToDeploy}-deployment.yaml
     git commit -m "bump"
     git push -u origin master
 else

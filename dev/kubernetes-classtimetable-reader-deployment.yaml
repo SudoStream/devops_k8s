@@ -1,34 +1,37 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: classtimetable-writer
+  name: classtimetable-reader
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
-      app: classtimetable-writer
+      app: classtimetable-reader
   strategy:
     type: RollingUpdate
   minReadySeconds: 10
   template:
     metadata:
       labels:
-        app: classtimetable-writer
+        app: classtimetable-reader
         tier: backend
-        bump: bump-70
+        bump: bump-65
     spec:
       imagePullSecrets:
         - name: myregistrykey
       volumes:
-        - name: "classtimetable-writer-tls"
+        - name: "classtimetable-reader-tls"
           secret:
-            secretName: "classtimetable-writer-tls"
-        - name: "nginx-classtimetable-writer-dev-proxf-conf"
+            secretName: "classtimetable-reader-tls"
+        - name: "nginx-classtimetable-reader-dev-proxf-conf"
           configMap:
-            name: "nginx-classtimetable-writer-dev-proxf-conf"
+            name: "nginx-classtimetable-reader-dev-proxf-conf"
             items:
-              - key: "nginx-classtimetable-writer.conf"
-                path: "nginx-classtimetable-writer.conf"
+              - key: "nginx-classtimetable-reader.conf"
+                path: "nginx-classtimetable-reader.conf"
+        - name: "mongodb-cacerts"
+          secret:
+            secretName: "mongodbkeystore"
       containers:
         - name: nginx
           image: nginx:1.7.9
@@ -48,27 +51,36 @@ spec:
               exec:
                 command: ["/usr/sbin/nginx", "-s", "quit"]
           volumeMounts:
-            - name: "nginx-classtimetable-writer-dev-proxf-conf"
+            - name: "nginx-classtimetable-reader-dev-proxf-conf"
               mountPath: "/etc/nginx/conf.d"
-            - name: "classtimetable-writer-tls"
+            - name: "classtimetable-reader-tls"
               mountPath: "/etc/tls"
-        - name: classtimetable-writer
-          image: eu.gcr.io/time-to-teach-zone/classtimetable-writer:latest
+        - name: classtimetable-reader
+          image: eu.gcr.io/time-to-teach-zone/classtimetable-reader:latest
           imagePullPolicy: Always
           env:
+            - name: MONGODB_HOST
+              value: "10.0.2.2"
+            - name: MONGODB_PORT
+              value: "27017"
+            - name: LOCAL_MONGO_DB
+              value: "false"
+            - name: MINIKUBE_RUN
+              value: "true"
             - name: MONGODB_CONNECTION_URI
               valueFrom:
                 secretKeyRef:
                   name: mongoconnectionuri
                   key: mongoconnectionuri
                   optional: true
-            - name: LOCAL_MONGO_DB
-              value: "false"
             - name: KAFKA_BOOTSTRAP_SERVERS
               valueFrom:
                 secretKeyRef:
                   name: kafkasecrets
                   key: kafkabootstrapservers
+          volumeMounts:
+            - name: "mongodb-cacerts"
+              mountPath: "/etc/ssl/"
           resources:
             limits:
               cpu: 200m
