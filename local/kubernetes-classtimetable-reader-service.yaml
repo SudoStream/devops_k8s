@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: classtimetable-reader
+  labels:
+    run: classtimetable-reader
+spec:
+  ports:
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 443
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+  selector:
+    app: classtimetable-reader
+  type: LoadBalancer
