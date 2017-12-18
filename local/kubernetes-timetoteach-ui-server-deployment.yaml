@@ -68,6 +68,11 @@ spec:
                   name: timetoteachfacebooksecret
                   key: timetoteachfacebooksecret
                   optional: true
+            - name: TIMETOTEACH_NO_REPLY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: timetoteachemailpassword
+                  key: timetoteachemailpassword
           resources:
             limits:
               cpu: 400m

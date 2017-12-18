@@ -65,3 +65,5 @@ kubectl delete secret timetoteachfacebookid
 kubectl create secret generic timetoteachfacebookid --from-file=timetoteachfacebookid=$HOME/.secrets/timetoteachfacebookid
 kubectl delete secret timetoteachfacebooksecret
 kubectl create secret generic timetoteachfacebooksecret --from-file=timetoteachfacebooksecret=$HOME/.secrets/timetoteachfacebooksecret
+kubectl delete secret timetoteachemailpassword
+kubectl create secret generic mongoconnectionuri --from-file=mongoconnectionuri=$HOME/.secrets/timetoteachemailpassword
