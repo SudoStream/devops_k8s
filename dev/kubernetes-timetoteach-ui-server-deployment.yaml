@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: timetoteach-ui-server
 spec:
-  replicas: 4
+  replicas: 3
   selector:
     matchLabels:
       app: timetoteach-ui-server
