@@ -69,6 +69,12 @@ spec:
                 secretKeyRef:
                   name: kafkasecrets
                   key: kafkabootstrapservers
+            - name: SYSTEM_EVENTS_TOPIC
+              value: "h1t96dt8-SYSTEM_ALL_EVENTS_LOG"
+            - name: UI_SOURCE_TOPIC
+              value: "h1t96dt8-UI_SOURCE_TOPIC"
+            - name: EXPERIENCES_AND_OUTCOMES
+              value: "h1t96dt8-EXPERIENCES_AND_OUTCOMES"
           resources:
             limits:
               cpu: 200m
