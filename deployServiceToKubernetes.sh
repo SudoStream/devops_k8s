@@ -68,7 +68,7 @@ fi
 # bump the label number
 oldNum=`cat ${K8S_ENV_TYPE}/kubernetes-${serviceToDeploy}-deployment.yaml | grep bump | cut -d "-" -f2`
 newNum=`expr $oldNum + 1`
-sed -i "s/bump-$oldNum/bump-$newNum/g" ${deploymentType}/kubernetes-${serviceToDeploy}-deployment.yaml
+sed -i "s/bump-$oldNum/bump-$newNum/g" ${K8S_ENV_TYPE}/kubernetes-${serviceToDeploy}-deployment.yaml
 
 if [[ ${deploymentType} == "local" ]]; then
     accessToken=`gcloud auth print-access-token`
