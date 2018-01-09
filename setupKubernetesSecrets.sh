@@ -59,6 +59,10 @@ kubectl delete secret mongodbkeystore
 kubectl create secret generic mongodbkeystore --from-file=cacerts=/etc/ssl/cacerts
 kubectl delete secret kafkasecrets
 kubectl create secret generic kafkasecrets --from-file=kafkabootstrapservers=$HOME/.secrets/kafkabootstrapservers
+kubectl delete secret kafkasasljassusername
+kubectl create secret generic kafkasasljassusername --from-file=kafkasasljassusername=$HOME/.secrets/kafkasasljassusername
+kubectl delete secret kafkasasljasspassword
+kubectl create secret generic kafkasasljasspassword --from-file=kafkasasljasspassword=$HOME/.secrets/kafkasasljasspassword
 kubectl delete secret mongoconnectionuri
 kubectl create secret generic mongoconnectionuri --from-file=mongoconnectionuri=$HOME/.secrets/mongoconnectionuri
 kubectl delete secret timetoteachfacebookid
