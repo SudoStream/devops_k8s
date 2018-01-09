@@ -75,6 +75,16 @@ spec:
               value: "h1t96dt8-UI_SOURCE_TOPIC"
             - name: EXPERIENCES_AND_OUTCOMES
               value: "h1t96dt8-EXPERIENCES_AND_OUTCOMES"
+            - name: KAFKA_SASL_JASS_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: kafkasasljassusername
+                  key: kafkasasljassusername
+            - name: KAFKA_SASL_JASS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: kafkasasljasspassword
+                  key: kafkasasljasspassword
           resources:
             limits:
               cpu: 200m
