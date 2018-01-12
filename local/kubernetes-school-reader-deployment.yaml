@@ -84,6 +84,16 @@ spec:
                 secretKeyRef:
                   name: kafkasecrets
                   key: kafkabootstrapservers
+            - name: KAFKA_SASL_JASS_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: kafkasasljassusername
+                  key: kafkasasljassusername
+            - name: KAFKA_SASL_JASS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: kafkasasljasspassword
+                  key: kafkasasljasspassword
           volumeMounts:
             - name: "mongodb-cacerts"
               mountPath: "/etc/ssl/"
