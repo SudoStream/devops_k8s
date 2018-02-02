@@ -93,4 +93,4 @@ kubectl delete --ignore-not-found configmap nginx-${serviceToDeploy}-dev-proxf-c
 kubectl create configmap nginx-${serviceToDeploy}-dev-proxf-conf --from-file ./${K8S_ENV_TYPE}/nginx-${serviceToDeploy}.conf
 kubectl apply -f ./${K8S_ENV_TYPE}/kubernetes-${serviceToDeploy}-service.yaml --record
 kubectl apply -f ./${K8S_ENV_TYPE}/kubernetes-${serviceToDeploy}-deployment.yaml --record
-
+echo "--- Deployed ${serviceToDeploy} ---"

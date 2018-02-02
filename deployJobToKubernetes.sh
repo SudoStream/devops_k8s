@@ -79,3 +79,4 @@ fi
 
 kubectl delete job ${serviceToDeploy}
 kubectl apply -f ./${K8S_ENV_TYPE}/kubernetes-${serviceToDeploy}-job.yaml --record
+echo "--- Deployed ${serviceToDeploy} ---"
