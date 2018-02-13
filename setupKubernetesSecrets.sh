@@ -36,25 +36,6 @@ if [[ ${deploymentType} == "" ]]; then
     exit 1
 fi
 
-
-if [[ ${deploymentType} == "local" ]]; then
-    accessToken=`gcloud auth print-access-token`
-    kubectl delete secret myregistrykey
-    kubectl create secret docker-registry myregistrykey --docker-server=https://eu.gcr.io \
-                    --docker-username=oauth2accesstoken \
-                    --docker-password=${accessToken} --docker-email=andy@timetoteach.zone
-elif [[ ${deploymentType} == "cloud" ]]; then
-    gcloud container clusters get-credentials timetoteach-dev-cluster
-
-    git add ${K8S_ENV_TYPE}/kubernetes-${serviceToDeploy}-deployment.yaml
-    git commit -m "bump"
-    git push -u origin master
-else
-    echo "ERROR: must specify 'local' or 'cloud' run"
-    exit 1
-fi
-
-
 kubectl delete secret mongodbkeystore
 kubectl create secret generic mongodbkeystore --from-file=cacerts=/etc/ssl/cacerts
 kubectl delete secret kafkasecrets
