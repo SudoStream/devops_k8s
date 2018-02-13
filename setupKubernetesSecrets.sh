@@ -36,6 +36,10 @@ if [[ ${deploymentType} == "" ]]; then
     exit 1
 fi
 
+echo "what is inside the mongo connection place?"
+cat $HOME/.secrets/mongoconnectionuri
+echo "That was interesting"
+
 kubectl delete secret mongodbkeystore
 kubectl create secret generic mongodbkeystore --from-file=cacerts=/etc/ssl/cacerts
 kubectl delete secret kafkasecrets
