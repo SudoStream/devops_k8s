@@ -53,19 +53,21 @@ if [[ ${serviceToDeploy} == "" || ${deploymentType} == "" ]]; then
     exit 1
 fi
 
-if [[ ${deploymentType} == "local" ]]; then
+if [[ "${deploymentType}" == "local" ]]; then
     K8S_ENV_TYPE="local"
-elif [[ ${deploymentType} == "cloud" ]]; then
+elif [[ "${deploymentType}" == "cloud" ]]; then
     K8S_ENV_TYPE="dev"
 fi
+
+echo "K8S_ENV_TYPE = ${K8S_ENV_TYPE}"
 
 oldNum=`cat ${K8S_ENV_TYPE}/kubernetes-${serviceToDeploy}-job.yaml | grep bump | cut -d "-" -f2`
 newNum=`expr $oldNum + 1`
 sed -i "s/bump-$oldNum/bump-$newNum/g" ${K8S_ENV_TYPE}/kubernetes-${serviceToDeploy}-job.yaml
 
-if [[ ${deploymentType} == "local" ]]; then
+if [[ "${deploymentType}" == "local" ]]; then
     echo "-----------------------------------'local'"
-elif [[ ${deploymentType} == "cloud" ]]; then
+elif [[ "${deploymentType}" == "cloud" ]]; then
     echo "-----------------------------------'cloud'"
     gcloud container clusters get-credentials timetoteach-dev-cluster
 
