@@ -15,7 +15,7 @@ spec:
       labels:
         app: classtimetable-reader
         tier: backend
-        bump: bump-81
+        bump: bump-82
     spec:
       imagePullSecrets:
         - name: myregistrykey
