@@ -15,7 +15,7 @@ spec:
       labels:
         app: es-and-os-reader
         tier: backend
-        bump: bump-57
+        bump: bump-58
     spec:
       imagePullSecrets:
         - name: myregistrykey
