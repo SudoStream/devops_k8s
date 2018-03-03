@@ -9,7 +9,7 @@ spec:
       labels:
         app: esandospopulator
         tier: backend
-        bump: bump-7
+        bump: bump-14
     spec:
       volumes:
         - name: "mongodb-cacerts"
