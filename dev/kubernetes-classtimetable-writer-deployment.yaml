@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: classtimetable-writer
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
       app: classtimetable-writer
