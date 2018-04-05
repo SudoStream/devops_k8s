@@ -35,10 +35,10 @@ spec:
           imagePullPolicy: IfNotPresent
           resources:
             limits:
-              cpu: 200m
-              memory: 768Mi
-            requests:
               cpu: 100m
+              memory: 512Mi
+            requests:
+              cpu: 50m
               memory: 256Mi
           ports:
             - containerPort: 443
@@ -83,7 +83,7 @@ spec:
                   key: kafkasasljasspassword
           resources:
             limits:
-              cpu: 200m
+              cpu: 150m
               memory: 768Mi
             requests:
               cpu: 100m

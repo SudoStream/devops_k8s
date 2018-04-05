@@ -35,7 +35,7 @@ spec:
           imagePullPolicy: IfNotPresent
           resources:
             limits:
-              cpu: 200m
+              cpu: 150m
               memory: 768Mi
             requests:
               cpu: 100m
@@ -89,7 +89,7 @@ spec:
                   key: timetoteachemailpassword
           resources:
             limits:
-              cpu: 400m
+              cpu: 300m
               memory: 1536Mi
             requests:
               cpu: 200m
