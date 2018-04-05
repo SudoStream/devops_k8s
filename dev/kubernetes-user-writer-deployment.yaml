@@ -4,7 +4,7 @@ metadata:
   name: user-writer
 spec:
   replicas: 2
-    selector:
+  selector:
     matchLabels:
       app: user-writer
   strategy:
@@ -15,7 +15,7 @@ spec:
       labels:
         app: user-writer
         tier: backend
-        bump: bump-87
+        bump: bump-80
     spec:
       imagePullSecrets:
         - name: myregistrykey
